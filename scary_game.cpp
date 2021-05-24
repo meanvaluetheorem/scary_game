@@ -34,4 +34,4 @@ int main() {
 	//rbb = Object("\\images\\restartt.png", sc, 500, 0, false);
 	scary = Object("\\images\\scary.png", sc, 0, 0, false);
 	startGame(sc);
-}
+}//존경감사요
