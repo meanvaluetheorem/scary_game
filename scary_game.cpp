@@ -1,4 +1,5 @@
-﻿#include<stdio.h>
+﻿//scary_game
+#include<stdio.h>
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
@@ -16,11 +17,14 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 void scaryscary() {
 	showObject(scary);
 }
+void notscary() {
+	hideObject(scary);
+}
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == eb || obj == eeb)endGame();
 	else if (305 <= x && x <= 350 && 397 <= y && y <= 547) scaryscary();
-	else if (obj == scary) hideObject(scary);
+	else if (obj == scary) notscary();
 }
 int main() {
 	setMouseCallback(mouseCallback);
