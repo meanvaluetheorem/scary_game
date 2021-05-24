@@ -39,4 +39,4 @@ int main() {
 	scary = Object("\\images\\scary.png", sc, 0, 0, false);
 	startGame(sc);
 }//존경감사요
-//ㅎㅇ
+//abcdefg
