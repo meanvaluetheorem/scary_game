@@ -13,10 +13,13 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	}
 	return object;
 }
+void scaryscary() {
+	showObject(scary);
+}
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == eb || obj == eeb)endGame();
-	else if (305 <= x && x <= 350 && 397 <= y && y <= 547) showObject(scary);
+	else if (305 <= x && x <= 350 && 397 <= y && y <= 547) scaryscary();
 	else if (obj == scary) hideObject(scary);
 }
 int main() {
@@ -31,4 +34,4 @@ int main() {
 	//rbb = Object("\\images\\restartt.png", sc, 500, 0, false);
 	scary = Object("\\images\\scary.png", sc, 0, 0, false);
 	startGame(sc);
-}//존경합니다
+}
