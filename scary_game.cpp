@@ -40,3 +40,4 @@ int main() {
 	startGame(sc);
 }//존경감사요
 //abcdefg
+//그만!!!
