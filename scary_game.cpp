@@ -29,9 +29,9 @@ int main() {
 	setMouseCallback(mouseCallback);
 	sc = createScene("", "\\images\\sc.png");
 	//startsc = Object("\\images\\startsc.png", sc, 0, 0, true);
-	gamesc_front = Object("\\images\\gamesc_front.png", sc, 0, 0, true);
-	gamesc_right = Object("\\images\\gamesc_right.png", sc, 0, 0, false);
-	gamesc_left = Object("\\images\\gamesc_left.png", sc, 0, 0, false);
+	gamesc_front = Object("\\images\\gamesc_front.png", sc, 0, 0, true);//앞벽
+	gamesc_right = Object("\\images\\gamesc_right.png", sc, 0, 0, false);//오른쪽벽
+	gamesc_left = Object("\\images\\gamesc_left.png", sc, 0, 0, false);//왼쪽벽
 	sb = Object("\\images\\start.png", sc, 500, 45, true);
 	rb = Object("\\images\\restart.png", sc, 500, 45, false);
 	//eeb = Object("\\images\\end.png", sc, 500, 10, true);
