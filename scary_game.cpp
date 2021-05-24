@@ -2,7 +2,6 @@
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
-
 int x, y;
 SceneID sc;
 ObjectID obj, sb, rb, rbb, eeb, eb, startsc, gamesc1, scary;
@@ -32,4 +31,4 @@ int main() {
 	//rbb = Object("\\images\\restartt.png", sc, 500, 0, false);
 	scary = Object("\\images\\scary.png", sc, 0, 0, false);
 	startGame(sc);
-}
+}//존경합니다
