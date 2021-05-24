@@ -1,6 +1,7 @@
 ﻿//scary_game
 #include<stdio.h>
 #include<bangtal.h>
+#include<windows.h>
 #include<math.h>
 int x, y;
 SceneID sc;
