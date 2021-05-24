@@ -1,5 +1,4 @@
-﻿//scary_game
-#include<stdio.h>
+﻿#include<stdio.h>
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
@@ -38,10 +37,4 @@ int main() {
 	//rbb = Object("\\images\\restartt.png", sc, 500, 0, false);
 	scary = Object("\\images\\scary.png", sc, 0, 0, false);
 	startGame(sc);
-}//존경감사요
-//abcdefg
-//그만!!!
-//369 369 369 369 1
-//369 369 369 369 2
-//369: 짝
-//369: 4
+}
