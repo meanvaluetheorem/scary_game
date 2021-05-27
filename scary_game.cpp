@@ -62,8 +62,8 @@ int main() {
 	gamesc_up = Object("\\images\\gamesc_up.png", sc, 0, 0, false);//윗벽
 	gamesc_down = Object("\\images\\gamesc_down.png", sc, 0, 0, false);//아랫벽
 	gamesc_back = Object("\\images\\gamesc_back.png", sc, 0, 0, false);//뒷벽
-	look_right = Object("\\images\\look_right.png", sc, 450, 325, true);
-	look_left = Object("\\images\\look_left.png", sc, 0, 325, true);
+	look_right = Object("\\images\\look_right.png", sc, 450, 295, true);
+	look_left = Object("\\images\\look_left.png", sc, 0, 295, true);
 	sb = Object("\\images\\start.png", sc, 500, 45, true);
 	rb = Object("\\images\\restart.png", sc, 500, 45, false);
 	//eeb = Object("\\images\\end.png", sc, 500, 10, true);
