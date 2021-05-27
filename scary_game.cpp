@@ -10,8 +10,8 @@ ObjectID look_right1, look_left1, look_up1, look_down1;
 ObjectID look_right2, look_left2, look_up2, look_down2;
 ObjectID look_right3, look_left3, look_up3, look_down3;
 ObjectID look_right4, look_left4, look_up4, look_down4;
-ObjectID look_right5, look_left5, look_down5;
-ObjectID look_right6, look_left6, look_up6;
+ObjectID look_down5;
+ObjectID look_up6;
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -20,43 +20,24 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	}
 	return object;
 }
+void see() {
+	if (obj == look_right1 || obj == look_right2 || obj == look_right3 || obj == look_right4) look = 10 * (look / 10) + (look % 10 + 5) % 4;
+	else if (obj == look_left1 || obj == look_left2 || obj == look_left3 || obj == look_left4) look = 10 * (look / 10) + (look % 10 + 3) % 4;
+	else if (obj == look_up1 || obj == look_up2 || obj == look_up3 || obj == look_up4 || obj == look_up6) if (look / 10 != 2) { look += 10; printf("\nup\n"); }
+	else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) if (look / 10 != 0) {look -= 10; printf("\ndown\n");}
+	if ((look % 10) % 4 == 0 && look / 10 == 1) enterScene(sc_front);
+	else if ((look % 10) % 4 == 1 && look / 10 == 1) enterScene(sc_right);
+	else if ((look % 10) % 4 == 2 && look / 10 == 1) enterScene(sc_back);
+	else if ((look % 10) % 4 == 3 && look / 10 == 1) enterScene(sc_left);
+	else if (look / 10 == 2) enterScene(sc_up);
+	else if (look / 10 == 0) enterScene(sc_down);
+}
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == eb || obj == eeb)endGame();
 	else if (305 <= x && x <= 350 && 397 <= y && y <= 547) showObject(scary);
 	else if (obj == scary) hideObject(scary);
-	else if (obj == look_right1 || obj == look_left1 || obj == look_up1 || obj == look_down1 || obj == look_right2 || obj == look_left2 || obj == look_up2 || obj == look_down2 || obj == look_right3 || obj == look_left3 || obj == look_up3 || obj == look_down3 || obj == look_right4 || obj == look_left4 || obj == look_up4 || obj == look_down4 || obj == look_right5 || obj == look_left5 || obj == look_down5 || obj == look_right6 || obj == look_left6 || obj == look_up6) {
-		if (obj == look_right1 || obj == look_right2 || obj == look_right3 || obj == look_right4 || obj == look_right5 || obj == look_right6) {
-			look = 10 * (look / 10) + (look % 10 + 5) % 4;
-		}
-		else if (obj == look_left1 || obj == look_left2 || obj == look_left3 || obj == look_left4 || obj == look_left5 || obj == look_left6) {
-			look = 10 * (look / 10) + (look % 10 + 3) % 4;
-		}
-		else if (obj == look_up1 || obj == look_up2 || obj == look_up3 || obj == look_up4 || obj == look_up6) {
-			if (look / 10 != 2) look += 10;
-		}
-		else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) {
-			if (look / 10 != 0) look -= 10;
-		}
-		if ((look % 10) % 4 == 0 && look / 10 == 1) {
-			enterScene(sc_front);
-		}
-		else if ((look % 10) % 4 == 1 && look / 10 == 1) {
-			enterScene(sc_right);
-		}
-		else if ((look % 10) % 4 == 2 && look / 10 == 1) {
-			enterScene(sc_back);
-		}
-		else if ((look % 10) % 4 == 3 && look / 10 == 1) {
-			enterScene(sc_left);
-		}
-		else if (look / 10 == 2) {
-			enterScene(sc_up);
-		}
-		else if (look / 10 == 0) {
-			enterScene(sc_down);
-		}
-	}
+	see();
 }
 int main() {
 	setMouseCallback(mouseCallback);
@@ -96,11 +77,7 @@ int main() {
 		look_left4 = Object("\\images\\look_left.png", sc_back, 0, 325, true);
 		look_up4 = Object("\\images\\look_up.png", sc_back, 225, 650, true);
 		look_down4 = Object("\\images\\look_down.png", sc_back, 225, 0, true);
-		look_right5 = Object("\\images\\look_right.png", sc_up, 450, 325, true);
-		look_left5 = Object("\\images\\look_left.png", sc_up, 0, 325, true);
 		look_down5 = Object("\\images\\look_down.png", sc_up, 225, 100, true);
-		look_right6 = Object("\\images\\look_right.png", sc_down, 450, 325, true);
-		look_left6 = Object("\\images\\look_left.png", sc_down, 0, 325, true);
 		look_up6 = Object("\\images\\look_up.png", sc_down, 225, 550, true);
 	}
 	//sb = Object("\\images\\start.png", sc, 500, 45, true);
