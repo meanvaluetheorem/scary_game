@@ -12,7 +12,7 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 		showObject(object);
 	}
 	return object;
-}//
+}///
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == eb || obj == eeb)endGame();
