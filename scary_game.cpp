@@ -4,7 +4,7 @@
 #include<math.h>
 int x, y;
 SceneID sc;
-ObjectID obj, sb, rb, rbb, eeb, eb, startsc, gamesc_front, gamesc_right, gamesc_left, scary;
+ObjectID obj, sb, rb, rbb, eeb, eb, startsc, gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, scary;
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -32,6 +32,9 @@ int main() {
 	gamesc_front = Object("\\images\\gamesc_front.png", sc, 0, 0, true);//앞벽
 	gamesc_right = Object("\\images\\gamesc_right.png", sc, 0, 0, false);//오른쪽벽
 	gamesc_left = Object("\\images\\gamesc_left.png", sc, 0, 0, false);//왼쪽벽
+	gamesc_up = Object("\\images\\gamesc_up.png", sc, 0, 0, false);//윗벽
+	gamesc_down = Object("\\images\\gamesc_down.png", sc, 0, 0, false);//아랫벽
+	gamesc_back = Object("\\images\\gamesc_back.png", sc, 0, 0, false);//뒷벽
 	sb = Object("\\images\\start.png", sc, 500, 45, true);
 	rb = Object("\\images\\restart.png", sc, 500, 45, false);
 	//eeb = Object("\\images\\end.png", sc, 500, 10, true);
