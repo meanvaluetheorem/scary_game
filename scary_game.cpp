@@ -2,7 +2,7 @@
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
-int x, y, look = 14;
+int x, y, look = 10;
 SceneID sc_front, sc_back, sc_right, sc_left, sc_up, sc_down;
 ObjectID obj, sb, rb, rbb, eeb, eb, startsc, scary;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back;
@@ -38,17 +38,17 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) {
 			if (look / 10 != 0) look -= 10;
 		}
-		if (look % 4 == 0 && look / 10 == 1) {
+		if ((look % 10) % 4 == 0 && look / 10 == 1) {
 			enterScene(sc_front);
 		}
-		else if (look % 4 == 1 && look / 10 == 1) {
+		else if ((look % 10) % 4 == 1 && look / 10 == 1) {
 			enterScene(sc_right);
 		}
-		else if (look % 4 == 3 && look / 10 == 1) {
-			enterScene(sc_left);
-		}
-		else if (look % 4 == 2 && look / 10 == 1) {
+		else if ((look % 10) % 4 == 2 && look / 10 == 1) {
 			enterScene(sc_back);
+		}
+		else if ((look % 10) % 4 == 3 && look / 10 == 1) {
+			enterScene(sc_left);
 		}
 		else if (look / 10 == 2) {
 			enterScene(sc_up);
