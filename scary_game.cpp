@@ -10,7 +10,7 @@ ObjectID look_right1, look_left1, look_up1, look_down1;
 ObjectID look_right2, look_left2, look_up2, look_down2;
 ObjectID look_right3, look_left3, look_up3, look_down3;
 ObjectID look_right4, look_left4, look_up4, look_down4;
-ObjectID look_down5, look_up6, roofin;
+ObjectID look_down5, look_up6, roofin, roofout;
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -31,6 +31,7 @@ void see() {
 	else if (look / 10 == 2) enterScene(sc_up);
 	else if (look / 10 == 0) enterScene(sc_down);
 	if (obj == roofin)enterScene(sc_roof);
+	//if (obj == roofout)enterScene(sc_up);
 }
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
@@ -57,6 +58,7 @@ int main() {
 		roofin = Object("\\images\\roofin.png", sc_up, 151, 181, true);
 		gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
+		roofout = Object("\\images\\roofout.png", sc_roof, 112, 88, true);
 		look_right1 = Object("\\images\\look_right.png", sc_front, 450, 325, true);
 		look_left1 = Object("\\images\\look_left.png", sc_front, 0, 325, true);
 		look_up1 = Object("\\images\\look_up.png", sc_front, 225, 650, true);
