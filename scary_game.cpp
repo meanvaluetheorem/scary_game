@@ -41,7 +41,6 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 }
 int main() {
 	setMouseCallback(mouseCallback);
-	//씬
 	{
 		sc_front = createScene("", "\\images\\sc.png");
 		sc_back = createScene("", "\\images\\sc.png");
