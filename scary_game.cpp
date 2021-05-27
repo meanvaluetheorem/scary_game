@@ -17,25 +17,6 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	}
 	return object;
 }
-/*
-void see() {
-	if (obj == roofin) hideObject(roofin);
-	else if (obj == roofin1) hideObject(roofin1);
-	else if (obj == roofin2) hideObject(roofin2);
-	else if (obj == roofin3)look += 100;
-	else if (obj == roofout)look -= 100;
-	else if (obj == look_right1 || obj == look_right2 || obj == look_right3 || obj == look_right4) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 5) % 4;
-	else if (obj == look_left1 || obj == look_left2 || obj == look_left3 || obj == look_left4) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 3) % 4;
-	else if (obj == look_up1 || obj == look_up2 || obj == look_up3 || obj == look_up4 || obj == look_up6) { if ((look % 100) / 10 != 2) look += 10; }
-	else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) { if ((look % 100) / 10 != 0) look -= 10; }
-	if ((look % 10) % 4 == 0 && look / 10 == 1) enterScene(sc_front);
-	else if (look / 100 == 0 && (look % 10) % 4 == 1 && look / 10 == 1) enterScene(sc_right);
-	else if (look / 100 == 0 && (look % 10) % 4 == 2 && look / 10 == 1) enterScene(sc_back);
-	else if (look / 100 == 0 && (look % 10) % 4 == 3 && look / 10 == 1) enterScene(sc_left);
-	else if (look / 100 == 0 && look / 10 == 2) enterScene(sc_up);
-	else if (look / 100 == 0 && look / 10 == 0) enterScene(sc_down);
-	else if (look / 100 == 1) enterScene(sc_roof);
-}*/
 void starting(bool starter) {
 	if (starter == true) {
 		enterScene(sc_front);
@@ -50,7 +31,7 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == sb) starting(true);
 	else if (obj == rb) starting(false);
-	else if (obj == eb)endGame();
+	else if (obj == eb || obj == steb)endGame();
 	else if (started == true) {
 		if (obj == key) { hit += 10000; hideObject(key); }
 		else if (obj == roofin && hit >= 10000) hideObject(roofin);
