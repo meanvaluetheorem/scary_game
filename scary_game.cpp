@@ -18,14 +18,9 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	return object;
 }
 void starting(bool starter) {
-	if (starter == true) {
-		enterScene(sc_front);
-		started = true;
-	}
-	else {
-		enterScene(sc_start);
-		started = false;
-	}
+	if (starter == true) enterScene(sc_front);
+	else enterScene(sc_start);
+	started = starter;
 }
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
