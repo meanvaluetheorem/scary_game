@@ -6,7 +6,7 @@
 bool started = false, pick_kal = false, pick_key = false;
 int x, y, look = 10, hit = 0;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary;
-ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal;
+ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, back_glass;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof;
 ObjectID look_right1, look_left1, look_up1, look_down1, look_right2, look_left2, look_up2, look_down2, look_right3, look_left3, look_up3, look_down3, look_right4, look_left4, look_up4, look_down4;
 ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
@@ -27,20 +27,21 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	else if (obj == rb) starting(false);
 	else if (obj == eb || obj == steb)endGame();
 	else if (started == true) {
-		if (obj == kal && pick_kal == false) { hideObject(kal); pickObject(kal); pick_kal = true; hit++; }
-		else if (obj == kal && pick_kal == true) { hideObject(kal); pickObject(kal);}
+		if (obj == kal && pick_kal == false) { pickObject(kal); pick_kal = true; hit++; }
+		else if (obj == kal && pick_kal == true) { pickObject(kal);}
 		else if (31 > hit && hit >= 1 && obj == scary && getHandObject() == kal && pick_kal == true) hit += 10;
 		if (hit == 31) { hideObject(scary); hideObject(small_scary); hit++; }
 		else if (532 > hit && hit >= 32 && obj == light_1) hit += 100;
 		if (hit == 532) { hideObject(light_1); hit++; }
 		else if (5533 > hit && hit >= 533 && obj == light_2) hit += 1000;
 		if (hit == 5533) { hideObject(light_2); hit++; }
-		else if (obj == key && hit == 5534 && pick_key == false) { hideObject(key);; pickObject(key); pick_key = true; hit++; }
-		else if (obj == key && hit == 5534 && pick_key == true) { hideObject(key);; pickObject(key);}
+		else if (obj == key && hit == 5534 && pick_key == false) { pickObject(key); pick_key = true; hit++; }
+		else if (obj == key && hit == 5534 && pick_key == true) { pickObject(key);}
 		else if (obj == roofin && hit == 5535 && getHandObject() == key) { hideObject(roofin); hit++; }
 		else if (obj == roofin1 && hit == 5536) { hideObject(roofin1); hit++; }
 		else if (obj == roofin2 && hit == 5537) { hideObject(roofin2); hit++; }
-		else if (obj == roofin3 && hit == 5538) { hideObject(roofin3); hit = 0; }
+		else if (obj == roofin3 && hit == 5538) { hideObject(roofin3); hit++; }
+		else if (obj == glasses) pickObject(glasses);
 		else if (obj == small_scary || obj == no_scary) look += 1000;
 		else if (obj == look_down7) look -= 1000;
 		else if (obj == roofinf)look += 100;
@@ -57,6 +58,8 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (look / 100 == 0 && look / 10 == 0) enterScene(sc_down);
 		else if (look / 100 == 1) enterScene(sc_roof);
 		else if (look / 1000 == 1) enterScene(sc_scary);
+		if (getHandObject() != glasses)showObject(back_glass);
+		else if (getHandObject() == glasses)hideObject(back_glass);
 	}
 	printf("\n%d", hit);
 }
@@ -85,6 +88,7 @@ int main() {
 		gamesc_right = Object("\\images\\gamesc_right.png", sc_right, 0, 0, true);
 		gamesc_left = Object("\\images\\gamesc_left.png", sc_left, 0, 0, true);
 		gamesc_back = Object("\\images\\gamesc_back.png", sc_back, 0, 0, true);
+		back_glass = Object("\\images\\back_glass.png", sc_back, 31, 207, true);
 		gamesc_up = Object("\\images\\gamesc_up.png", sc_up, 0, 0, true);
 		roofinf = Object("\\images\\roofinf.png", sc_up, 151, 181, true);
 		roofin3 = Object("\\images\\roofin3.png", sc_up, 151, 181, true);
@@ -98,6 +102,7 @@ int main() {
 		kal = Object("\\images\\kal.png", sc_down, 131, 229, true);
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 		roofout = Object("\\images\\roofout.png", sc_roof, 112, 88, true);
+		glasses = Object("\\images\\glasses.png", sc_roof, 422, 180, true);
 		look_right1 = Object("\\images\\look_right.png", sc_front, 470, 335, true);
 		look_left1 = Object("\\images\\look_left.png", sc_front, 0, 335, true);
 		look_up1 = Object("\\images\\look_up.png", sc_front, 215, 670, true);
