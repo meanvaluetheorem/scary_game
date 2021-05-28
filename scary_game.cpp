@@ -17,15 +17,15 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	if (shown == true) showObject(object);
 	return object;
 }
-void starting(bool starter) {
-	if (starter == true) enterScene(sc_front);
-	else enterScene(sc_start);
-	started = starter;
-}
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, bool playing, bool loop) {
 	sound = createSound(soundfile);
 	if (playing == true) playSound(sound, loop);
 	return sound;
+}
+void starting(bool starter) {
+	if (starter == true) enterScene(sc_front);
+	else enterScene(sc_start);
+	started = starter;
 }
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
@@ -71,7 +71,6 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 }
 int main() {
 	setMouseCallback(mouseCallback);
-	scary_BGM = playsound(scary_BGM, "배경음악", "\\sounds\\BGM.mp3", true, true);
 	{
 		sc_start = createScene("", "\\images\\sc.png");
 		sc_front = createScene("", "\\images\\sc.png");
@@ -129,6 +128,7 @@ int main() {
 		look_down5 = Object("\\images\\look_down.png", sc_up, 215, 100, true);
 		look_up6 = Object("\\images\\look_up.png", sc_down, 215, 570, true);
 		look_down7 = Object("\\images\\look_down.png", sc_scary, 215, 0, true);
+		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true, true);
 	}
 	startGame(sc_start);
 }
