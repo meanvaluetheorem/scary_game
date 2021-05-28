@@ -3,7 +3,7 @@
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
-bool started = false;
+bool started = false, pick_kal = false, pick_key = false;
 int x, y, look = 10, hit = 0;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary;
 ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal;
@@ -27,15 +27,17 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	else if (obj == rb) starting(false);
 	else if (obj == eb || obj == steb)endGame();
 	else if (started == true) {
-		if (obj == kal) { hideObject(kal); hit++; }
-		else if (31 > hit && hit >= 1 && obj == scary) hit += 10;
+		if (obj == kal && pick_kal == false) { hideObject(kal); pickObject(kal); pick_kal = true; hit++; }
+		else if (obj == kal && pick_kal == true) { hideObject(kal); pickObject(kal);}
+		else if (31 > hit && hit >= 1 && obj == scary && getHandObject() == kal && pick_kal == true) hit += 10;
 		if (hit == 31) { hideObject(scary); hideObject(small_scary); hit++; }
 		else if (532 > hit && hit >= 32 && obj == light_1) hit += 100;
 		if (hit == 532) { hideObject(light_1); hit++; }
 		else if (5533 > hit && hit >= 533 && obj == light_2) hit += 1000;
 		if (hit == 5533) { hideObject(light_2); hit++; }
-		else if (obj == key && hit == 5534) { hideObject(key); hit++; }
-		else if (obj == roofin && hit == 5535) { hideObject(roofin); hit++; }
+		else if (obj == key && hit == 5534 && pick_key == false) { hideObject(key);; pickObject(key); pick_key = true; hit++; }
+		else if (obj == key && hit == 5534 && pick_key == true) { hideObject(key);; pickObject(key);}
+		else if (obj == roofin && hit == 5535 && getHandObject() == key) { hideObject(roofin); hit++; }
 		else if (obj == roofin1 && hit == 5536) { hideObject(roofin1); hit++; }
 		else if (obj == roofin2 && hit == 5537) { hideObject(roofin2); hit++; }
 		else if (obj == roofin3 && hit == 5538) { hideObject(roofin3); hit = 0; }
@@ -56,6 +58,7 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (look / 100 == 1) enterScene(sc_roof);
 		else if (look / 1000 == 1) enterScene(sc_scary);
 	}
+	printf("\n%d", hit);
 }
 int main() {
 	setMouseCallback(mouseCallback);
