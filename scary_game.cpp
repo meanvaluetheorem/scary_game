@@ -26,6 +26,7 @@ void starting(bool starter) {
 	if (starter == true) enterScene(sc_front);
 	else enterScene(sc_start);
 	started = starter;
+	showMessage("CAUTION !!! BGM LOUD!!!");
 }
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
