@@ -41,7 +41,7 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (obj == look_up1 || obj == look_up2 || obj == look_up3 || obj == look_up4 || obj == look_up6) { if ((look % 100) / 10 != 2) look += 10; }
 		else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) { if ((look % 100) / 10 != 0) look -= 10; }
 		else if (obj == light_1 && hit >= 3)hit += 10;
-		else if (obj == light_2 && hit >= 40)hit += 100;
+		else if (obj == light_2 && hit >= 50)hit += 100;
 		if ((look % 10) % 4 == 0 && look / 10 == 1) enterScene(sc_front);
 		else if (look / 100 == 0 && (look % 10) % 4 == 1 && look / 10 == 1) enterScene(sc_right);
 		else if (look / 100 == 0 && (look % 10) % 4 == 2 && look / 10 == 1) enterScene(sc_back);
@@ -51,8 +51,8 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (look / 100 == 1) enterScene(sc_roof);
 		else if (look / 100 == 2) { enterScene(sc_scary); if (obj == scary) hit++; }
 		if (hit % 10 >= 3) { hideObject(scary); hideObject(small_scary); }
-		if (hit % 100 >= 40)hideObject(light_1);
-		if (hit % 1000 >= 400)hideObject(light_2);
+		if (hit % 100 >= 50)hideObject(light_1);
+		if (hit % 1000 >= 500)hideObject(light_2);
 	}
 }
 int main() {
@@ -92,25 +92,25 @@ int main() {
 		gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 		roofout = Object("\\images\\roofout.png", sc_roof, 112, 88, true);
-		look_right1 = Object("\\images\\look_right.png", sc_front, 450, 325, true);
-		look_left1 = Object("\\images\\look_left.png", sc_front, 0, 325, true);
-		look_up1 = Object("\\images\\look_up.png", sc_front, 225, 650, true);
-		look_down1 = Object("\\images\\look_down.png", sc_front, 225, 0, true);
-		look_right2 = Object("\\images\\look_right.png", sc_right, 450, 325, true);
-		look_left2 = Object("\\images\\look_left.png", sc_right, 0, 325, true);
-		look_up2 = Object("\\images\\look_up.png", sc_right, 225, 650, true);
-		look_down2 = Object("\\images\\look_down.png", sc_right, 225, 0, true);
-		look_right3 = Object("\\images\\look_right.png", sc_left, 450, 325, true);
-		look_left3 = Object("\\images\\look_left.png", sc_left, 0, 325, true);
-		look_up3 = Object("\\images\\look_up.png", sc_left, 225, 650, true);
-		look_down3 = Object("\\images\\look_down.png", sc_left, 225, 0, true);
-		look_right4 = Object("\\images\\look_right.png", sc_back, 450, 325, true);
-		look_left4 = Object("\\images\\look_left.png", sc_back, 0, 325, true);
-		look_up4 = Object("\\images\\look_up.png", sc_back, 225, 650, true);
-		look_down4 = Object("\\images\\look_down.png", sc_back, 225, 0, true);
-		look_down5 = Object("\\images\\look_down.png", sc_up, 225, 100, true);
-		look_up6 = Object("\\images\\look_up.png", sc_down, 225, 550, true);
-		look_down7 = Object("\\images\\look_down.png", sc_scary, 225, 0, true);
+		look_right1 = Object("\\images\\look_right.png", sc_front, 470, 335, true);
+		look_left1 = Object("\\images\\look_left.png", sc_front, 0, 335, true);
+		look_up1 = Object("\\images\\look_up.png", sc_front, 215, 670, true);
+		look_down1 = Object("\\images\\look_down.png", sc_front, 215, 0, true);
+		look_right2 = Object("\\images\\look_right.png", sc_right, 470, 335, true);
+		look_left2 = Object("\\images\\look_left.png", sc_right, 0, 335, true);
+		look_up2 = Object("\\images\\look_up.png", sc_right, 215, 670, true);
+		look_down2 = Object("\\images\\look_down.png", sc_right, 215, 0, true);
+		look_right3 = Object("\\images\\look_right.png", sc_left, 470, 335, true);
+		look_left3 = Object("\\images\\look_left.png", sc_left, 0, 335, true);
+		look_up3 = Object("\\images\\look_up.png", sc_left, 215, 670, true);
+		look_down3 = Object("\\images\\look_down.png", sc_left, 215, 0, true);
+		look_right4 = Object("\\images\\look_right.png", sc_back, 470, 335, true);
+		look_left4 = Object("\\images\\look_left.png", sc_back, 0, 335, true);
+		look_up4 = Object("\\images\\look_up.png", sc_back, 215, 670, true);
+		look_down4 = Object("\\images\\look_down.png", sc_back, 215, 0, true);
+		look_down5 = Object("\\images\\look_down.png", sc_up, 215, 100, true);
+		look_up6 = Object("\\images\\look_up.png", sc_down, 215, 570, true);
+		look_down7 = Object("\\images\\look_down.png", sc_scary, 215, 0, true);
 	}
 	startGame(sc_start);
 }
