@@ -20,22 +20,22 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, bool playing, bool loop) {
 	sound = createSound(soundfile);
 	if (playing == true) playSound(sound, loop);
+	if(1) showMessage("CAUTION!!!\nBGM IS LOUD");
 	return sound;
 }
 void starting(bool starter) {
-	if (starter == true) enterScene(sc_front);
+	if (starter == true) { enterScene(sc_front); playSound(scary_BGM); }
 	else enterScene(sc_start);
 	started = starter;
-	showMessage("CAUTION !!! BGM LOUD!!!");
 }
 void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == sb) starting(true);
-	else if (obj == rb) starting(false);
+	else if (obj == rb)	starting(false);
 	else if (obj == eb || obj == steb)endGame();
 	else if (started == true) {
 		if (obj == kal && pick_kal == false) { pickObject(kal); pick_kal = true; hit++; }
-		else if (obj == kal && pick_kal == true) { pickObject(kal);}
+		else if (obj == kal && pick_kal == true) { pickObject(kal); }
 		else if (31 > hit && hit >= 1 && obj == scary && getHandObject() == kal && pick_kal == true) hit += 10;
 		if (hit == 31) { hideObject(scary); hideObject(small_scary); hit++; }
 		else if (532 > hit && hit >= 32 && obj == light_1) hit += 100;
@@ -68,7 +68,6 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		if (getHandObject() != glasses)showObject(back_glass);
 		else if (getHandObject() == glasses)hideObject(back_glass);
 	}
-	printf("\n%d", hit);
 }
 int main() {
 	setMouseCallback(mouseCallback);
@@ -83,10 +82,10 @@ int main() {
 		sc_scary = createScene("", "\\images\\sc.png");
 		sc_roof = createScene("", "\\images\\sc.png");
 		start_sc = Object("\\images\\start_sc.png", sc_start, 0, 0, true);
-		sb = Object("\\images\\start.png", sc_start, 38, 75, true);
-		steb = Object("\\images\\end.png", sc_start, 158, 75, true);
-		rb = Object("\\images\\restart.png", sc_front, 500, 45, true);
-		eb = Object("\\images\\end.png", sc_front, 500, 75, true);
+		sb = Object("\\images\\start.png", sc_start, 38, 55, true);
+		steb = Object("\\images\\end.png", sc_start, 368, 55, true);
+		rb = Object("\\images\\restart.png", sc_front, 500, 55, true);
+		eb = Object("\\images\\end.png", sc_front, 500, 25, true);
 		gamesc_front = Object("\\images\\gamesc_front.png", sc_front, 0, 0, true);
 		no_scary = Object("\\images\\no_scary.png", sc_front, 304, 396, true);
 		small_scary = Object("\\images\\small_scary.png", sc_front, 304, 396, true);
@@ -129,7 +128,7 @@ int main() {
 		look_down5 = Object("\\images\\look_down.png", sc_up, 215, 100, true);
 		look_up6 = Object("\\images\\look_up.png", sc_down, 215, 570, true);
 		look_down7 = Object("\\images\\look_down.png", sc_scary, 215, 0, true);
-		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true, true);
+		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", false, true);
 	}
 	startGame(sc_start);
 }
