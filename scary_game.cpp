@@ -6,10 +6,10 @@
 bool started = false;
 int x, y, look = 10, hit = 0;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary;
-ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key;
+ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof;
 ObjectID look_right1, look_left1, look_up1, look_down1, look_right2, look_left2, look_up2, look_down2, look_right3, look_left3, look_up3, look_down3, look_right4, look_left4, look_up4, look_down4;
-ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofin4, roofout, scary, small_scary, no_scary, empty_scary;
+ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -27,21 +27,26 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	else if (obj == rb) starting(false);
 	else if (obj == eb || obj == steb)endGame();
 	else if (started == true) {
-		if (obj == key) { hit += 10000; hideObject(key); }
-		else if (obj == roofin && hit >= 10000) hideObject(roofin);
-		else if (obj == roofin1) hideObject(roofin1);
-		else if (obj == roofin2) hideObject(roofin2);
-		else if (obj == roofin3) hideObject(roofin3);
-		else if (obj == small_scary || obj == no_scary) look += 200;
-		else if (obj == look_down7) look -= 200;
-		else if (obj == roofin4)look += 100;
+		if (obj == kal) { hideObject(kal); hit++; }
+		else if (31 > hit && hit >= 1 && obj == scary) hit += 10;
+		if (hit == 31) { hideObject(scary); hideObject(small_scary); hit++; }
+		else if (532 > hit && hit >= 32 && obj == light_1) hit += 100;
+		if (hit == 532) { hideObject(light_1); hit++; }
+		else if (5533 > hit && hit >= 533 && obj == light_2) hit += 1000;
+		if (hit == 5533) { hideObject(light_2); hit++; }
+		else if (obj == key && hit == 5534) { hideObject(key); hit++; }
+		else if (obj == roofin && hit == 5535) { hideObject(roofin); hit++; }
+		else if (obj == roofin1 && hit == 5536) { hideObject(roofin1); hit++; }
+		else if (obj == roofin2 && hit == 5537) { hideObject(roofin2); hit++; }
+		else if (obj == roofin3 && hit == 5538) { hideObject(roofin3); hit = 0; }
+		else if (obj == small_scary || obj == no_scary) look += 1000;
+		else if (obj == look_down7) look -= 1000;
+		else if (obj == roofinf)look += 100;
 		else if (obj == roofout)look -= 100;
 		else if (obj == look_right1 || obj == look_right2 || obj == look_right3 || obj == look_right4) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 5) % 4;
 		else if (obj == look_left1 || obj == look_left2 || obj == look_left3 || obj == look_left4) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 3) % 4;
 		else if (obj == look_up1 || obj == look_up2 || obj == look_up3 || obj == look_up4 || obj == look_up6) { if ((look % 100) / 10 != 2) look += 10; }
 		else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) { if ((look % 100) / 10 != 0) look -= 10; }
-		else if (obj == light_1 && hit >= 3)hit += 10;
-		else if (obj == light_2 && hit >= 50)hit += 100;
 		if ((look % 10) % 4 == 0 && look / 10 == 1) enterScene(sc_front);
 		else if (look / 100 == 0 && (look % 10) % 4 == 1 && look / 10 == 1) enterScene(sc_right);
 		else if (look / 100 == 0 && (look % 10) % 4 == 2 && look / 10 == 1) enterScene(sc_back);
@@ -49,10 +54,7 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (look / 100 == 0 && look / 10 == 2) enterScene(sc_up);
 		else if (look / 100 == 0 && look / 10 == 0) enterScene(sc_down);
 		else if (look / 100 == 1) enterScene(sc_roof);
-		else if (look / 100 == 2) { enterScene(sc_scary); if (obj == scary) hit++; }
-		if (hit % 10 >= 3) { hideObject(scary); hideObject(small_scary); }
-		if (hit % 100 >= 50)hideObject(light_1);
-		if (hit % 1000 >= 500)hideObject(light_2);
+		else if (look / 1000 == 1) enterScene(sc_scary);
 	}
 }
 int main() {
@@ -81,7 +83,7 @@ int main() {
 		gamesc_left = Object("\\images\\gamesc_left.png", sc_left, 0, 0, true);
 		gamesc_back = Object("\\images\\gamesc_back.png", sc_back, 0, 0, true);
 		gamesc_up = Object("\\images\\gamesc_up.png", sc_up, 0, 0, true);
-		roofin4 = Object("\\images\\roofin4.png", sc_up, 151, 181, true);
+		roofinf = Object("\\images\\roofinf.png", sc_up, 151, 181, true);
 		roofin3 = Object("\\images\\roofin3.png", sc_up, 151, 181, true);
 		roofin2 = Object("\\images\\roofin2.png", sc_up, 151, 181, true);
 		roofin1 = Object("\\images\\roofin1.png", sc_up, 151, 181, true);
@@ -90,6 +92,7 @@ int main() {
 		light_1 = Object("\\images\\light.png", sc_up, 13, 122, true);
 		light_2 = Object("\\images\\light.png", sc_up, 420, 121, true);
 		gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
+		kal = Object("\\images\\kal.png", sc_down, 131, 229, true);
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 		roofout = Object("\\images\\roofout.png", sc_roof, 112, 88, true);
 		look_right1 = Object("\\images\\look_right.png", sc_front, 470, 335, true);
