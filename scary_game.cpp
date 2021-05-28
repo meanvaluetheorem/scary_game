@@ -13,9 +13,7 @@ ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, ro
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
-	if (shown == true) {
-		showObject(object);
-	}
+	if (shown == true) showObject(object);
 	return object;
 }
 void starting(bool starter) {
