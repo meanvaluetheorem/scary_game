@@ -31,7 +31,7 @@ void starting(bool starter) {
 }
 void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED) {
-		if (code == KeyCode::KEY_0) key_input[key_count] = '0';
+		if (code == KeyCode::KEY_0) key_input[key_count] = "0";
 		else if (code == KeyCode::KEY_1) key_input[key_count] = '1';
 		else if (code == KeyCode::KEY_2) key_input[key_count] = '2';
 		else if (code == KeyCode::KEY_3) key_input[key_count] = '3';
