@@ -78,6 +78,7 @@ void keyboardControl(KeyCode code, KeyState state) {
 		key_count++;
 		if (key_count == 4) {
 			if (key_input[0] == '5' && key_input[1] == '3' && key_input[2] == '7' && key_input[3] == '6') {
+				stopSound(scary_BGM);
 				showMessage("DORE OPENED\n");
 				showObject(win);
 				goscene(sc_front);
