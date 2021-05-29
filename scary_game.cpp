@@ -9,9 +9,9 @@ char key_input[1024];
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan;
 ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan;
-ObjectID wire_item, wire1, wire2, wire3, wire4, wire5, wire6, wire7, wire8, wire9, blood;
+ObjectID wire_item, wire, blood;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof;
-ObjectID look_right1, look_left1, look_up1, look_down1, look_right2, look_left2, look_up2, look_down2, look_right3, look_left3, look_up3, look_down3, look_right4, look_left4, look_up4, look_down4;
+ObjectID look_right, look_left, look_up, look_down;
 ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
     ObjectID object = createObject(image);
@@ -27,26 +27,10 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, b
 }
 void wire_see(bool shown) {
     if (shown == true) {
-        showObject(wire1);
-        showObject(wire2);
-        showObject(wire3);
-        showObject(wire4);
-        showObject(wire5);
-        showObject(wire6);
-        showObject(wire7);
-        showObject(wire8);
-        showObject(wire9);
+        showObject(wire);
     }
     else if (shown == false) {
-        hideObject(wire1);
-        hideObject(wire2);
-        hideObject(wire3);
-        hideObject(wire4);
-        hideObject(wire5);
-        hideObject(wire6);
-        hideObject(wire7);
-        hideObject(wire8);
-        hideObject(wire9);
+        hideObject(wire);
     }
 }
 void starting(bool starter) {
@@ -54,6 +38,65 @@ void starting(bool starter) {
     }
     else enterScene(sc_start);
     started = starter;
+}
+void goscene(SceneID scene) {//sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan
+    if (scene == sc_front){
+        enterScene(sc_front);
+        locateObject(look_right, sc_front, 470, 335);
+        locateObject(look_left, sc_front, 0, 335);
+        locateObject(look_up, sc_front, 215, 670);
+        locateObject(look_down, sc_front, 215, 0);
+        locateObject(wire, sc_front, 24, 0);
+    }
+    else if (scene == sc_back) {
+        enterScene(sc_back);
+        locateObject(look_right, sc_back, 470, 335);
+        locateObject(look_left, sc_back, 0, 335);
+        locateObject(look_up, sc_back, 215, 670);
+        locateObject(look_down, sc_back, 215, 0);
+        locateObject(wire, sc_back, 24, 0);
+    }
+    else if (scene == sc_right) {
+        enterScene(sc_right);
+        locateObject(look_right, sc_right, 470, 335);
+        locateObject(look_left, sc_right, 0, 335);
+        locateObject(look_up, sc_right, 215, 670);
+        locateObject(look_down, sc_right, 215, 0);
+        locateObject(wire, sc_right, 24, 0);
+    }
+    else if (scene == sc_left) {
+        enterScene(sc_left);
+        locateObject(look_right, sc_left, 470, 335);
+        locateObject(look_left, sc_left, 0, 335);
+        locateObject(look_up, sc_left, 215, 670);
+        locateObject(look_down, sc_left, 215, 0);
+        locateObject(wire, sc_left, 24, 0);
+    }
+    else if (scene == sc_up) {
+        enterScene(sc_up);
+        locateObject(look_down, sc_up, 215, 0);
+        locateObject(wire, sc_up, 24, 0);
+    }
+    else if (scene == sc_down) {
+        enterScene(sc_down);
+        locateObject(look_up, sc_down, 215, 670);
+        locateObject(wire, sc_down, 24, 0);
+    }
+    else if (scene == sc_roof) {
+        enterScene(sc_roof);
+        locateObject(wire, sc_roof, 24, 0);
+    }
+    else if (scene == sc_scary) {
+        enterScene(sc_scary);
+        locateObject(look_down, sc_scary, 215, 0);
+        locateObject(wire, sc_scary, 24, 0);
+    }
+    else if (scene == sc_keypan) {
+        enterScene(sc_keypan);
+        locateObject(look_down, sc_keypan, 215, 0);
+        locateObject(wire, sc_keypan, 24, 0);
+    }
+
 }
 void keyboardControl(KeyCode code, KeyState state) {
     if (state == KeyState::KEY_PRESSED) {
@@ -106,18 +149,18 @@ void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
         else if (obj == look_down7) look -= 1000;
         else if (obj == roofinf)look += 100;
         else if (obj == roofout)look -= 100;
-        else if (obj == look_right1 || obj == look_right2 || obj == look_right3 || obj == look_right4) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 5) % 4;
-        else if (obj == look_left1 || obj == look_left2 || obj == look_left3 || obj == look_left4) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 3) % 4;
-        else if (obj == look_up1 || obj == look_up2 || obj == look_up3 || obj == look_up4 || obj == look_up6) { if ((look % 100) / 10 != 2) look += 10; }
-        else if (obj == look_down1 || obj == look_down2 || obj == look_down3 || obj == look_down4 || obj == look_down5) { if ((look % 100) / 10 != 0) look -= 10; }
-        if ((look % 10) % 4 == 0 && look / 10 == 1) enterScene(sc_front);
-        else if (look / 100 == 0 && (look % 10) % 4 == 1 && look / 10 == 1) enterScene(sc_right);
-        else if (look / 100 == 0 && (look % 10) % 4 == 2 && look / 10 == 1) enterScene(sc_back);
-        else if (look / 100 == 0 && (look % 10) % 4 == 3 && look / 10 == 1) enterScene(sc_left);
-        else if (look / 100 == 0 && look / 10 == 2) enterScene(sc_up);
-        else if (look / 100 == 0 && look / 10 == 0) enterScene(sc_down);
-        else if (look / 100 == 1) enterScene(sc_roof);
-        else if (look / 1000 == 1) enterScene(sc_scary);
+        else if (obj == look_right) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 5) % 4;
+        else if (obj == look_left) look = 100 * (look / 100) + 10 * (look / 10) + (look % 10 + 3) % 4;
+        else if (obj == look_up) { if ((look % 100) / 10 != 2) look += 10; }
+        else if (obj == look_down) { if ((look % 100) / 10 != 0) look -= 10; }
+        if ((look % 10) % 4 == 0 && look / 10 == 1|| obj == scary || obj == empty_scary) goscene(sc_front);
+        else if (look / 100 == 0 && (look % 10) % 4 == 1 && look / 10 == 1) goscene(sc_right);
+        else if (look / 100 == 0 && (look % 10) % 4 == 2 && look / 10 == 1) goscene(sc_back);
+        else if (look / 100 == 0 && (look % 10) % 4 == 3 && look / 10 == 1) goscene(sc_left);
+        else if (look / 100 == 0 && look / 10 == 2) goscene(sc_up);
+        else if (look / 100 == 0 && look / 10 == 0) goscene(sc_down);
+        else if (look / 100 == 1) goscene(sc_roof);
+        else if (look / 1000 == 1) goscene(sc_scary);
     }
 }
 int main() {
@@ -165,34 +208,11 @@ int main() {
         wire_item = Object("\\images\\wire_item.png", sc_roof, 422, 380, true);
         glasses_wire = Object("\\images\\glasses_wire.png", sc_roof, 422, 580, false);
         keypan = Object("\\images\\keypan.png", sc_keypan, 0, 0, true);
-        look_right1 = Object("\\images\\look_right.png", sc_front, 470, 335, true);
-        look_left1 = Object("\\images\\look_left.png", sc_front, 0, 335, true);
-        look_up1 = Object("\\images\\look_up.png", sc_front, 215, 670, true);
-        look_down1 = Object("\\images\\look_down.png", sc_front, 215, 0, true);
-        look_right2 = Object("\\images\\look_right.png", sc_right, 470, 335, true);
-        look_left2 = Object("\\images\\look_left.png", sc_right, 0, 335, true);
-        look_up2 = Object("\\images\\look_up.png", sc_right, 215, 670, true);
-        look_down2 = Object("\\images\\look_down.png", sc_right, 215, 0, true);
-        look_right3 = Object("\\images\\look_right.png", sc_left, 470, 335, true);
-        look_left3 = Object("\\images\\look_left.png", sc_left, 0, 335, true);
-        look_up3 = Object("\\images\\look_up.png", sc_left, 215, 670, true);
-        look_down3 = Object("\\images\\look_down.png", sc_left, 215, 0, true);
-        look_right4 = Object("\\images\\look_right.png", sc_back, 470, 335, true);
-        look_left4 = Object("\\images\\look_left.png", sc_back, 0, 335, true);
-        look_up4 = Object("\\images\\look_up.png", sc_back, 215, 670, true);
-        look_down4 = Object("\\images\\look_down.png", sc_back, 215, 0, true);
-        look_down5 = Object("\\images\\look_down.png", sc_up, 215, 100, true);
-        look_up6 = Object("\\images\\look_up.png", sc_down, 215, 570, true);
-        look_down7 = Object("\\images\\look_down.png", sc_scary, 215, 0, true);
-        wire1 = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
-        wire2 = Object("\\images\\gamesc_wire.png", sc_back, 24, 0, false);
-        wire3 = Object("\\images\\gamesc_wire.png", sc_right, 24, 0, false);
-        wire4 = Object("\\images\\gamesc_wire.png", sc_left, 24, 0, false);
-        wire5 = Object("\\images\\gamesc_wire.png", sc_up, 24, 0, false);
-        wire6 = Object("\\images\\gamesc_wire.png", sc_down, 24, 0, false);
-        wire7 = Object("\\images\\gamesc_wire.png", sc_scary, 24, 0, false);
-        wire8 = Object("\\images\\gamesc_wire.png", sc_roof, 24, 0, false);
-        wire9 = Object("\\images\\gamesc_wire.png", sc_keypan, 24, 0, false);
+        look_right = Object("\\images\\look_right.png", sc_front, 470, 335, true);
+        look_left = Object("\\images\\look_left.png", sc_front, 0, 335, true);
+        look_up = Object("\\images\\look_up.png", sc_front, 215, 670, true);
+        look_down = Object("\\images\\look_down.png", sc_front, 215, 0, true);
+        wire = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
         defineCombination( glasses,  wire_item,  glasses_wire);
         scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", false, true);
     }
