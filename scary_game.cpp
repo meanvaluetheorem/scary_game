@@ -8,7 +8,7 @@ int x, y, look = 10, hit = 0, key_count=0;
 char key_input[1024];
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan;
-ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, back_glass, keypan;
+ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, keypan;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof;
 ObjectID look_right1, look_left1, look_up1, look_down1, look_right2, look_left2, look_up2, look_down2, look_right3, look_left3, look_up3, look_down3, look_right4, look_left4, look_up4, look_down4;
 ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
@@ -42,9 +42,14 @@ void keyboardControl(KeyCode code, KeyState state) {
 		else if (code == KeyCode::KEY_8) key_input[key_count] = '8';
 		else if (code == KeyCode::KEY_9) key_input[key_count] = '9';
 		key_count++;
-		if (code == KeyCode::KEY_ENTER) { key_input[0] = 0; key_count = 0; }
+		if (code == KeyCode::KEY_ENTER) {
+			if (key_input == "1234")printf("   yes\n");
+			else printf("   no\n");
+			for (int k = 0; k < key_count + 1; k++)key_input[k] = 0;
+			key_count = 0; 
+		}
+		printf("   %s\n", key_input);
 	}
-	printf("%s\n", key_input);
 }
 void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
@@ -83,8 +88,6 @@ void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
 		else if (look / 100 == 0 && look / 10 == 0) enterScene(sc_down);
 		else if (look / 100 == 1) enterScene(sc_roof);
 		else if (look / 1000 == 1) enterScene(sc_scary);
-		if (getHandObject() != glasses)showObject(back_glass);
-		else if (getHandObject() == glasses)hideObject(back_glass);
 	}
 }
 int main() {
@@ -114,7 +117,6 @@ int main() {
 		gamesc_right = Object("\\images\\gamesc_right.png", sc_right, 0, 0, true);
 		gamesc_left = Object("\\images\\gamesc_left.png", sc_left, 0, 0, true);
 		gamesc_back = Object("\\images\\gamesc_back.png", sc_back, 0, 0, true);
-		back_glass = Object("\\images\\back_glass.png", sc_back, 31, 207, true);
 		gamesc_up = Object("\\images\\gamesc_up.png", sc_up, 0, 0, true);
 		roofinf = Object("\\images\\roofinf.png", sc_up, 151, 181, true);
 		roofin3 = Object("\\images\\roofin3.png", sc_up, 151, 181, true);
