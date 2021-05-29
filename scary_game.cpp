@@ -18,17 +18,11 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	if (shown == true) showObject(object);
 	return object;
 }
-SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, bool playing, bool loop) {
+SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
-	if (playing == true) playSound(sound, loop);
-	if (1) showMessage("CAUTION!!!\nBGM IS LOUD");
+	showMessage("CAUTION!!!\nBGM IS LOUD");
+	playSound(sound,true);
 	return sound;
-}
-void starting(bool starter) {
-	if (starter == true) {
-		enterScene(sc_front);// playSound(scary_BGM); 
-	}
-	else enterScene(sc_start);
 }
 void goscene(SceneID scene) {
 	enterScene(scene);
@@ -39,7 +33,7 @@ void goscene(SceneID scene) {
 	if (scene == sc_start) {
 		scene_add = 0;
 		locateObject(eb, scene, 368, 55);
-		hideObject(rb);
+		hideObject(rb); 
 	}
 	else if (scene == sc_front || scene == sc_back || scene == sc_right || scene == sc_left) {
 		if (scene == sc_front)scene_add = 1;
@@ -179,7 +173,7 @@ int main() {
 		wire = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
 		win = Object("\\images\\win.png", sc_front, 0, 0, false);
 		defineCombination(glasses, wire_item, glasses_wire);
-		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", false, true);
+		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
 	}
-	startGame(sc_roof);
+	startGame(sc_start);
 }
