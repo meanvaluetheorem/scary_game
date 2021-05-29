@@ -8,7 +8,8 @@ int x, y, look = 10, hit = 0, key_count = 0;
 char key_input[1024];
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan;
-ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, keypan;
+ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan;
+ObjectID wire_item, wire1, wire2, wire3, wire4, wire5, wire6, wire7, wire8, wire9, blood;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof;
 ObjectID look_right1, look_left1, look_up1, look_down1, look_right2, look_left2, look_up2, look_down2, look_right3, look_left3, look_up3, look_down3, look_right4, look_left4, look_up4, look_down4;
 ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
@@ -24,8 +25,33 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, b
     if (1) showMessage("CAUTION!!!\nBGM IS LOUD");
     return sound;
 }
+void wire_see(bool shown) {
+    if (shown == true) {
+        showObject(wire1);
+        showObject(wire2);
+        showObject(wire3);
+        showObject(wire4);
+        showObject(wire5);
+        showObject(wire6);
+        showObject(wire7);
+        showObject(wire8);
+        showObject(wire9);
+    }
+    else if (shown == false) {
+        hideObject(wire1);
+        hideObject(wire2);
+        hideObject(wire3);
+        hideObject(wire4);
+        hideObject(wire5);
+        hideObject(wire6);
+        hideObject(wire7);
+        hideObject(wire8);
+        hideObject(wire9);
+    }
+}
 void starting(bool starter) {
-    if (starter == true) { enterScene(sc_front); playSound(scary_BGM); }
+    if (starter == true) { enterScene(sc_front);// playSound(scary_BGM); 
+    }
     else enterScene(sc_start);
     started = starter;
 }
@@ -54,12 +80,16 @@ void keyboardControl(KeyCode code, KeyState state) {
 void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
     x = px; y = py; obj = pobj;
     if (obj == sb) starting(true);
-    else if (obj == rb)   starting(false);
-    else if (obj == eb || obj == steb)endGame();
-    else if (started == true) {
-        if (obj == kal && pick_kal == false) { pickObject(kal); pick_kal = true; hit++; }
-        else if (obj == kal && pick_kal == true) { pickObject(kal); }
-        else if (31 > hit && hit >= 1 && obj == scary && getHandObject() == kal && pick_kal == true) hit += 10;
+	else if (obj == wire_item) pickObject(wire_item);
+	else if (obj == rb)   starting(false);
+	else if (obj == eb || obj == steb)endGame();
+	else if (started == true) {
+        if (obj == blood) hideObject(blood);
+		if (getHandObject() == glasses_wire)wire_see(true);
+		else if (getHandObject() != glasses_wire)wire_see(false);
+		if (obj == kal && pick_kal == false) { pickObject(kal); pick_kal = true; hit++; }
+		else if (obj == kal && pick_kal == true) { pickObject(kal); }
+		else if (31 > hit && hit >= 1 && obj == scary && getHandObject() == kal && pick_kal == true) hit += 10;
         if (hit == 31) { hideObject(scary); hideObject(small_scary); hit++; }
         else if (532 > hit && hit >= 32 && obj == light_1) hit += 100;
         if (hit == 532) { hideObject(light_1); hit++; }
@@ -91,8 +121,8 @@ void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
     }
 }
 int main() {
-    setMouseCallback(mouseControl);
     setKeyboardCallback(keyboardControl);
+    setMouseCallback(mouseControl);
     {
         sc_start = createScene("", "\\images\\sc.png");
         sc_front = createScene("", "\\images\\sc.png");
@@ -117,6 +147,7 @@ int main() {
         gamesc_right = Object("\\images\\gamesc_right.png", sc_right, 0, 0, true);
         gamesc_left = Object("\\images\\gamesc_left.png", sc_left, 0, 0, true);
         gamesc_back = Object("\\images\\gamesc_back.png", sc_back, 0, 0, true);
+        blood = Object("\\images\\blood.png", sc_back, 31, 283, true);
         gamesc_up = Object("\\images\\gamesc_up.png", sc_up, 0, 0, true);
         roofinf = Object("\\images\\roofinf.png", sc_up, 151, 181, true);
         roofin3 = Object("\\images\\roofin3.png", sc_up, 151, 181, true);
@@ -131,6 +162,9 @@ int main() {
         gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
         roofout = Object("\\images\\roofout.png", sc_roof, 112, 88, true);
         glasses = Object("\\images\\glasses.png", sc_roof, 422, 180, true);
+        wire_item = Object("\\images\\wire_item.png", sc_roof, 422, 380, true);
+        glasses_wire = Object("\\images\\glasses_wire.png", sc_roof, 422, 580, false);
+        keypan = Object("\\images\\keypan.png", sc_keypan, 0, 0, true);
         look_right1 = Object("\\images\\look_right.png", sc_front, 470, 335, true);
         look_left1 = Object("\\images\\look_left.png", sc_front, 0, 335, true);
         look_up1 = Object("\\images\\look_up.png", sc_front, 215, 670, true);
@@ -150,7 +184,16 @@ int main() {
         look_down5 = Object("\\images\\look_down.png", sc_up, 215, 100, true);
         look_up6 = Object("\\images\\look_up.png", sc_down, 215, 570, true);
         look_down7 = Object("\\images\\look_down.png", sc_scary, 215, 0, true);
-        keypan = Object("\\images\\keypan.png", sc_keypan, 215, 0, true);
+        wire1 = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
+        wire2 = Object("\\images\\gamesc_wire.png", sc_back, 24, 0, false);
+        wire3 = Object("\\images\\gamesc_wire.png", sc_right, 24, 0, false);
+        wire4 = Object("\\images\\gamesc_wire.png", sc_left, 24, 0, false);
+        wire5 = Object("\\images\\gamesc_wire.png", sc_up, 24, 0, false);
+        wire6 = Object("\\images\\gamesc_wire.png", sc_down, 24, 0, false);
+        wire7 = Object("\\images\\gamesc_wire.png", sc_scary, 24, 0, false);
+        wire8 = Object("\\images\\gamesc_wire.png", sc_roof, 24, 0, false);
+        wire9 = Object("\\images\\gamesc_wire.png", sc_keypan, 24, 0, false);
+        defineCombination( glasses,  wire_item,  glasses_wire);
         scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", false, true);
     }
     startGame(sc_start);
