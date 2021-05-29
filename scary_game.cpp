@@ -167,9 +167,9 @@ int main() {
 		gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
 		kal = Object("\\images\\kal.png", sc_down, 131, 229, true);
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
-		roofout = Object("\\images\\roofout.png", sc_roof, 112, 88, true);
-		glasses = Object("\\images\\glasses.png", sc_roof, 422, 180, true);
-		wire_item = Object("\\images\\wire_item.png", sc_roof, 422, 380, true);
+		roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
+		glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
+		wire_item = Object("\\images\\wire_item.png", sc_roof, 171, 280, true);
 		glasses_wire = Object("\\images\\glasses_wire.png", sc_roof, 422, 580, false);
 		keypan = Object("\\images\\keypan.png", sc_keypan, 0, 0, true);
 		look_right = Object("\\images\\look_right.png", sc_front, 470, 335, true);
@@ -181,5 +181,5 @@ int main() {
 		defineCombination(glasses, wire_item, glasses_wire);
 		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", false, true);
 	}
-	startGame(sc_start);
+	startGame(sc_roof);
 }
