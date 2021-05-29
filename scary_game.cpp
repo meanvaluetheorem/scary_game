@@ -4,10 +4,11 @@
 #include<windows.h>
 #include<math.h>
 bool started = false, pick_kal = false, pick_key = false;
-int x, y, look = 10, hit = 0;
+int x, y, look = 10, hit = 0, key_count=0;
+char key_input[1024];
 SoundID scary_BGM;
-SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary;
-ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, back_glass;
+SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan;
+ObjectID obj, sb, rb, steb, eb, start_sc, light_1, light_2, key, kal, glasses, back_glass, keypan;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof;
 ObjectID look_right1, look_left1, look_up1, look_down1, look_right2, look_left2, look_up2, look_down2, look_right3, look_left3, look_up3, look_down3, look_right4, look_left4, look_up4, look_down4;
 ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
@@ -28,7 +29,24 @@ void starting(bool starter) {
 	else enterScene(sc_start);
 	started = starter;
 }
-void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
+void keyboardControl(KeyCode code, KeyState state) {
+	if (state == KeyState::KEY_PRESSED) {
+		if (code == KeyCode::KEY_0) key_input[key_count] = '0';
+		else if (code == KeyCode::KEY_1) key_input[key_count] = '1';
+		else if (code == KeyCode::KEY_2) key_input[key_count] = '2';
+		else if (code == KeyCode::KEY_3) key_input[key_count] = '3';
+		else if (code == KeyCode::KEY_4) key_input[key_count] = '4';
+		else if (code == KeyCode::KEY_5) key_input[key_count] = '5';
+		else if (code == KeyCode::KEY_6) key_input[key_count] = '6';
+		else if (code == KeyCode::KEY_7) key_input[key_count] = '7';
+		else if (code == KeyCode::KEY_8) key_input[key_count] = '8';
+		else if (code == KeyCode::KEY_9) key_input[key_count] = '9';
+		key_count++;
+		if (code == KeyCode::KEY_ENTER) { key_input[0] = 0; key_count = 0; }
+	}
+	printf("%s\n", key_input);
+}
+void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
 	x = px; y = py; obj = pobj;
 	if (obj == sb) starting(true);
 	else if (obj == rb)	starting(false);
@@ -70,7 +88,8 @@ void mouseCallback(ObjectID pobj, int px, int py, MouseAction act) {
 	}
 }
 int main() {
-	setMouseCallback(mouseCallback);
+	setMouseCallback(mouseControl);
+	setKeyboardCallback(keyboardControl);
 	{
 		sc_start = createScene("", "\\images\\sc.png");
 		sc_front = createScene("", "\\images\\sc.png");
@@ -81,6 +100,7 @@ int main() {
 		sc_down = createScene("", "\\images\\sc.png");
 		sc_scary = createScene("", "\\images\\sc.png");
 		sc_roof = createScene("", "\\images\\sc.png");
+		sc_keypan = createScene("", "\\images\\sc.png");
 		start_sc = Object("\\images\\start_sc.png", sc_start, 0, 0, true);
 		sb = Object("\\images\\start.png", sc_start, 38, 55, true);
 		steb = Object("\\images\\end.png", sc_start, 368, 55, true);
@@ -128,6 +148,7 @@ int main() {
 		look_down5 = Object("\\images\\look_down.png", sc_up, 215, 100, true);
 		look_up6 = Object("\\images\\look_up.png", sc_down, 215, 570, true);
 		look_down7 = Object("\\images\\look_down.png", sc_scary, 215, 0, true);
+		keypan = Object("\\images\\keypan.png", sc_keypan, 215, 0, true);
 		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", false, true);
 	}
 	startGame(sc_start);
