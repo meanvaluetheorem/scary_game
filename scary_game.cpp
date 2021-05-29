@@ -8,10 +8,10 @@ char key_input[4];
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan;
 ObjectID obj, sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan;
-ObjectID wire_item, wire, blood, hammer, huge, win;
+ObjectID wire_item, wire, blood, hammer, huge, win, look_right, look_left, look_up, look_down;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan;
-ObjectID look_right, look_left, look_up, look_down;
-ObjectID look_down5, look_down7, look_up6, roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary;
+ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout;
+ObjectID scary, small_scary, no_scary, empty_scary;
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -21,7 +21,7 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
 	showMessage("CAUTION!!!\nBGM IS LOUD");
-	playSound(sound,true);
+	playSound(sound, true);
 	return sound;
 }
 void goscene(SceneID scene) {
@@ -33,7 +33,7 @@ void goscene(SceneID scene) {
 	if (scene == sc_start) {
 		scene_add = 0;
 		locateObject(eb, scene, 368, 55);
-		hideObject(rb); 
+		hideObject(rb);
 	}
 	else if (scene == sc_front || scene == sc_back || scene == sc_right || scene == sc_left) {
 		if (scene == sc_front)scene_add = 1;
@@ -77,7 +77,11 @@ void keyboardControl(KeyCode code, KeyState state) {
 		else if (code == KeyCode::KEY_9) key_input[key_count] = '9';
 		key_count++;
 		if (key_count == 4) {
-			if (key_input[0] == '5' && key_input[1] == '3' && key_input[2] == '7' && key_input[3] == '6') { showMessage("DORE OPENED\n"); showObject(win); }
+			if (key_input[0] == '5' && key_input[1] == '3' && key_input[2] == '7' && key_input[3] == '6') {
+				showMessage("DORE OPENED\n");
+				showObject(win);
+				goscene(sc_front);
+			}
 			else showMessage("WRONG PASSWORD!!!\n");
 			key_count = 0;
 		}
