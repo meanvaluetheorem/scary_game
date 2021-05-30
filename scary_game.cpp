@@ -8,7 +8,7 @@ KeyState state;
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
 ObjectID sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
-ObjectID wire_item, wire, blood, hammer, huge, win, look_right, look_left, look_up, look_down;
+ObjectID wire_item, wire, blood, empty_blood, hammer, huge, win, look_right, look_left, look_up, look_down;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
 ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary, num[4];
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
@@ -20,7 +20,7 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
 	showMessage("CAUTION!!!\nBGM IS LOUD");
-	playSound(sound, true);
+	//playSound(sound, true);
 	return sound;
 }
 void goscene(SceneID scene) {
@@ -100,14 +100,16 @@ void keyboardControl(KeyCode code, KeyState sstate) {
 
 
 void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
-	if (getHandObject() == glasses_wire)showObject(wire);
-	else if (getHandObject() != glasses_wire)hideObject(wire);
+	if (getHandObject() == glasses) hideObject(empty_blood);
+	else if (getHandObject() == glasses_wire) showObject(wire);
+	else if (getHandObject() != glasses_wire) hideObject(wire);
 	if (obj == sb) goscene(sc_front);
 	else if (obj == rb) goscene(sc_start);
 	else if (obj == eb)endGame();
 	else if (obj == win)endGame();
 	else if (obj == wire_item) pickObject(wire_item);
 	else if (obj == glasses) pickObject(glasses);
+	else if (obj == glasses_wire) pickObject(glasses_wire);
 	else if (obj == key) pickObject(key);
 	else if (obj == kal) pickObject(kal);
 	else if (obj == hammer) pickObject(hammer);
@@ -168,6 +170,7 @@ int main() {
 		numpan1 = Object("\\images\\numpan1.png", sc_left, 31, 305, true);
 		gamesc_back = Object("\\images\\gamesc_back.png", sc_back, 0, 0, true);
 		blood = Object("\\images\\blood.png", sc_back, 31, 283, true);
+		empty_blood = Object("\\images\\empty_blood.png", sc_back, 0, 0, true);
 		gamesc_up = Object("\\images\\gamesc_up.png", sc_up, 0, 0, true);
 		roofinf = Object("\\images\\roofinf.png", sc_up, 151, 181, true);
 		roofin3 = Object("\\images\\roofin3.png", sc_up, 151, 181, true);
