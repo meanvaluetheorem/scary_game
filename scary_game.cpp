@@ -119,6 +119,7 @@ void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
 	else if (obj == light_1 && getHandObject() == hammer && hit == 6) hideObject(light_1);
 	else if (obj == light_2 && getHandObject() == hammer && hit >= 6 && hit < 10) hit++;
 	else if (obj == light_2 && getHandObject() == hammer && hit == 10) hideObject(light_2);
+	else if (obj == light_1)  showObject(hammer);
 	else if (obj == roofin && getHandObject() == key)  hideObject(roofin);
 	else if (obj == roofin1) hideObject(roofin1);
 	else if (obj == roofin2) hideObject(roofin2);
@@ -146,7 +147,7 @@ int main() {
 		no_scary = Object("\\images\\no_scary.png", sc_front, 304, 396, true);
 		small_scary = Object("\\images\\small_scary.png", sc_front, 304, 396, true);
 		empty_scary = Object("\\images\\empty_scary.png", sc_scary, 0, 0, true);
-		hammer = Object("\\images\\hammer.png", sc_scary, 0, 0, true);
+		hammer = Object("\\images\\hammer.png", sc_scary, 0, 0, false);
 		huge = Object("\\images\\huge.png", sc_scary, 370, 0, false);
 		scary = Object("\\images\\scary.png", sc_scary, 0, 0, true);
 		gamesc_right = Object("\\images\\gamesc_right.png", sc_right, 0, 0, true);
