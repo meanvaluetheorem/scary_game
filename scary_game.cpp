@@ -3,7 +3,8 @@
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
-int x, y, look = 10, hit = 0, key_count = 0, scene_add = 0, key_input[5] = { 5491,0,0,0,0 };
+int x, y, look = 10, hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
+KeyState state;
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
 ObjectID obj, sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
@@ -11,7 +12,7 @@ ObjectID wire_item, wire, blood, hammer, huge, win, look_right, look_left, look_
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
 ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout;
 ObjectID scary, small_scary, no_scary, empty_scary;
-ObjectID num1, num2, num3, num4, num5, num6, num7, num8, num9;
+ObjectID num[4];
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -21,7 +22,7 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
 	showMessage("CAUTION!!!\nBGM IS LOUD");
-	//playSound(sound, true);
+	playSound(sound, true);
 	return sound;
 }
 void goscene(SceneID scene) {
@@ -54,13 +55,9 @@ void winwin() {
 	showObject(win);
 	goscene(sc_front);
 }
-void wrong() {
-	key_count = 0;
-	for (int k = 1; k <= 4; k++)key_input[k] = 0;
-	showMessage("WRONG PASSWORD!!!\n");
-}
-void keyboardControl(KeyCode code, KeyState state) {
-	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10)) {
+void keyboardControl(KeyCode code, KeyState sstate) {
+	state = sstate;
+	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
 		key_count++;
 		if (code == KeyCode::KEY_1) key_input[key_count] = 1;
 		else if (code == KeyCode::KEY_2) key_input[key_count] = 2;
@@ -71,42 +68,35 @@ void keyboardControl(KeyCode code, KeyState state) {
 		else if (code == KeyCode::KEY_7) key_input[key_count] = 7;
 		else if (code == KeyCode::KEY_8) key_input[key_count] = 8;
 		else if (code == KeyCode::KEY_9) key_input[key_count] = 9;
-		if (scene_add == 7) {
-			if (key_input[key_count] == 1)num1 = Object("\\images\\num1.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 2)num1 = Object("\\images\\num2.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 3)num1 = Object("\\images\\num3.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 4)num1 = Object("\\images\\num4.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 5)num1 = Object("\\images\\num5.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 6)num1 = Object("\\images\\num6.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 7)num1 = Object("\\images\\num7.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 8)num1 = Object("\\images\\num8.png", sc_keypan1, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 9)num1 = Object("\\images\\num9.png", sc_keypan1, 175 + 25 * key_count, 434, true);
+		else key_count--;
+		for (int k = 0; k < 4; k++) {
+			if (scene_add == 7 && key_count == k) {
+				if (key_input[key_count] == 1)num[k] = Object("\\images\\num1.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 2)num[k] = Object("\\images\\num2.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 3)num[k] = Object("\\images\\num3.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 4)num[k] = Object("\\images\\num4.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 5)num[k] = Object("\\images\\num5.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 6)num[k] = Object("\\images\\num6.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 7)num[k] = Object("\\images\\num7.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 8)num[k] = Object("\\images\\num8.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+			}
+			else if (scene_add == 10 && key_count == k) {
+				if (key_input[key_count] == 1)num[k] = Object("\\images\\num1.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 2)num[k] = Object("\\images\\num2.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 3)num[k] = Object("\\images\\num3.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 4)num[k] = Object("\\images\\num4.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 5)num[k] = Object("\\images\\num5.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 6)num[k] = Object("\\images\\num6.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 7)num[k] = Object("\\images\\num7.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 8)num[k] = Object("\\images\\num8.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+			}
 		}
-		else if (scene_add == 10) {
-			if (key_input[key_count] == 1)num1 = Object("\\images\\num1.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 2)num1 = Object("\\images\\num2.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 3)num1 = Object("\\images\\num3.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 4)num1 = Object("\\images\\num4.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 5)num1 = Object("\\images\\num5.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 6)num1 = Object("\\images\\num6.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 7)num1 = Object("\\images\\num7.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 8)num1 = Object("\\images\\num8.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-			else if (key_input[key_count] == 9)num1 = Object("\\images\\num9.png", sc_keypan2, 175 + 25 * key_count, 434, true);
-		}
-		if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_ESCAPE && key_count > 0 && (scene_add == 7 || scene_add == 10))
-		{
-			if (key_input[key_count] == 1)hideObject(num1);
-			else if (key_input[key_count] == 2)hideObject(num2);
-			else if (key_input[key_count] == 3)hideObject(num3);
-			else if (key_input[key_count] == 4)hideObject(num4);
-			else if (key_input[key_count] == 5)hideObject(num5);
-			else if (key_input[key_count] == 6)hideObject(num6);
-			else if (key_input[key_count] == 7)hideObject(num7);
-			else if (key_input[key_count] == 8)hideObject(num8);
-			else if (key_input[key_count] == 9)hideObject(num9);
-			key_count--;
-		}
-		if (key_count == 4) if (key_input[1] == 5 && key_input[2] == 4 && key_input[3] == 9 && key_input[4] == 1) winwin(); else wrong();
+		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else showMessage("WRONG PASSWORD!!!\n");;
+	}
+	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {
+		hideObject(num[key_count]); key_count--;
 	}
 }
 
