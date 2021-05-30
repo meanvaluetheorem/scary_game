@@ -3,16 +3,14 @@
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
-int x, y, look = 10, hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
+int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
 KeyState state;
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
-ObjectID obj, sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
+ObjectID sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
 ObjectID wire_item, wire, blood, hammer, huge, win, look_right, look_left, look_up, look_down;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
-ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout;
-ObjectID scary, small_scary, no_scary, empty_scary;
-ObjectID num[4];
+ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary, num[4];
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	ObjectID object = createObject(image);
 	locateObject(object, scene, x, y);
@@ -101,8 +99,7 @@ void keyboardControl(KeyCode code, KeyState sstate) {
 }
 
 
-void mouseControl(ObjectID pobj, int px, int py, MouseAction act) {
-	x = px; y = py; obj = pobj;
+void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	if (getHandObject() == glasses_wire)showObject(wire);
 	else if (getHandObject() != glasses_wire)hideObject(wire);
 	if (obj == sb) goscene(sc_front);
