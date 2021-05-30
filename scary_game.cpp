@@ -3,7 +3,7 @@
 #include<bangtal.h>
 #include<windows.h>
 #include<math.h>
-int x, y, look = 10, hit = 0, key_count = 0, scene_add = 0, key_input[5] = {5376,0,0,0,0};
+int x, y, look = 10, hit = 0, key_count = 0, scene_add = 0, key_input[5] = { 5491,0,0,0,0 };
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
 ObjectID obj, sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
@@ -30,11 +30,7 @@ void goscene(SceneID scene) {
 	locateObject(rb, scene, 500, 55);
 	locateObject(wire, scene, 24, 0);
 	showObject(rb);
-	if (scene == sc_start) {
-		scene_add = 0;
-		locateObject(eb, scene, 368, 55);
-		hideObject(rb);
-	}
+	if (scene == sc_start) { scene_add = 0; locateObject(eb, scene, 368, 55); hideObject(rb); }
 	else if (scene == sc_front || scene == sc_back || scene == sc_right || scene == sc_left) {
 		if (scene == sc_front)scene_add = 1;
 		else if (scene == sc_back)scene_add = 2;
@@ -45,28 +41,12 @@ void goscene(SceneID scene) {
 		locateObject(look_up, scene, 215, 670);
 		locateObject(look_down, scene, 215, 0);
 	}
-	else if (scene == sc_up) {
-		scene_add = 5;
-		locateObject(look_down, scene, 215, 100);
-	}
-	else if (scene == sc_scary) {
-		scene_add = 6;
-		locateObject(look_down, scene, 215, 0);
-	}
-	else if (scene == sc_keypan1) {
-		scene_add = 7;
-		locateObject(look_down, scene, 215, 256);
-	}
-	else if (scene == sc_down) {
-		scene_add = 8;
-		locateObject(look_up, scene, 215, 570);
-	}
+	else if (scene == sc_up) { scene_add = 5; locateObject(look_down, scene, 215, 100); }
+	else if (scene == sc_scary) { scene_add = 6; locateObject(look_down, scene, 215, 0); }
+	else if (scene == sc_keypan1) { scene_add = 7; locateObject(look_down, scene, 215, 256); }
+	else if (scene == sc_down) { scene_add = 8; locateObject(look_up, scene, 215, 570); }
 	else if (scene == sc_roof) scene_add = 9;
-	else if (scene == sc_keypan2) {
-		scene_add = 10;
-		locateObject(look_down, scene, 215, 256);
-	}
-	printf("      scene_add :        %d\n", scene_add);////////////////////////////////////////////////////////////////////
+	else if (scene == sc_keypan2) { scene_add = 10; locateObject(look_down, scene, 215, 256); }
 }
 void winwin() {
 	stopSound(scary_BGM);
@@ -76,10 +56,7 @@ void winwin() {
 }
 void wrong() {
 	key_count = 0;
-	key_input[1] = 0; 
-	key_input[2] = 0; 
-	key_input[3] = 0;
-	key_input[4] = 0; 
+	for (int k = 1; k <= 4; k++)key_input[k] = 0;
 	showMessage("WRONG PASSWORD!!!\n");
 }
 void keyboardControl(KeyCode code, KeyState state) {
@@ -129,12 +106,7 @@ void keyboardControl(KeyCode code, KeyState state) {
 			else if (key_input[key_count] == 9)hideObject(num9);
 			key_count--;
 		}
-		printf("                    key_count :    %d\n", key_count);//////////////////////////////////
-		printf("         key_input[key_count] :    %d\n\n", key_input[key_count]);/////////////////////
-		if (key_count == 4) {
-			if (key_input[1] == 5 && key_input[2] == 3 && key_input[3] == 7 && key_input[4] == 6) winwin();
-			else wrong();
-		}
+		if (key_count == 4) if (key_input[1] == 5 && key_input[2] == 4 && key_input[3] == 9 && key_input[4] == 1) winwin(); else wrong();
 	}
 }
 
