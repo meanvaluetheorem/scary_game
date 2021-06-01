@@ -19,7 +19,7 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
 	showMessage("CAUTION!!!\nBGM IS LOUD");
-	//playSound(sound, true);
+	playSound(sound, true);
 	return sound;
 }
 void goscene(SceneID scene) {
@@ -91,12 +91,8 @@ void keyboardControl(KeyCode code, KeyState state) {
 		}
 		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else showMessage("WRONG PASSWORD!!!\n");;
 	}
-	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {
-		hideObject(num[key_count]); key_count--;
-	}
+	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {hideObject(num[key_count]); key_count--;}
 }
-
-
 void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	if (getHandObject() == glasses) hideObject(empty_blood);
 	else if (getHandObject() == glasses_wire) showObject(wire);
