@@ -4,7 +4,6 @@
 #include<windows.h>
 #include<math.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
-KeyState state;
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
 ObjectID sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
@@ -53,8 +52,7 @@ void winwin() {
 	showObject(win);
 	goscene(sc_front);
 }
-void keyboardControl(KeyCode code, KeyState sstate) {
-	state = sstate;
+void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
 		key_count++;
 		if (code == KeyCode::KEY_1) key_input[key_count] = 1;
