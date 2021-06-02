@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<bangtal.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
+float chongtangtime = 0.04f;
 SoundID scary_BGM;
 TimerID timechong;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
@@ -48,7 +49,7 @@ void goscene(SceneID scene) {
 }
 void bang() {hideObject(sonchong);showObject(chongtang);startTimer(timechong);}
 void winwin() {stopSound(scary_BGM);enterScene(sc_win);goscene(sc_win);}
-void timerComtrol(TimerID timer) {if (timer == timechong) {hideObject(chongtang);showObject(sonchong);setTimer(timechong, 0.02f);}}
+void timerComtrol(TimerID timer) {if (timer == timechong) {hideObject(chongtang);showObject(sonchong);setTimer(timechong, chongtangtime);}}
 void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
 		key_count++;
@@ -195,6 +196,6 @@ int main() {
 	ending = Object("\\images\\ending.png", sc_win, 0, 0, false);
 	defineCombination(glasses, wire_item, glasses_wire);
 	//scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
-	timechong = createTimer(0.02f);
+	timechong = createTimer(chongtangtime);
 	startGame(sc_start);
 }
