@@ -1,10 +1,10 @@
 ﻿///////////////////////////////////////////////   띄어쓰기 줄바꾸기 금지   ///////////////////////////////////////////////
 #include<stdio.h>
 #include<bangtal.h>
-int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y=-1400;
-float chong_tang_time = 0.04f, hammer_tang_time = 0.08f;
+int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y = -1400;
+float chong_tang_time = 0.04f, hammer_tang_time = 0.08f, ending_speed = 0.005f;
 SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
-TimerID time_chong, time_hammer;
+TimerID time_chong, time_hammer, ending_time;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
 ObjectID sb, pb, eb, start_sc, light_1, light_2, key, chong, son_chong, chong_tang, glasses, glasses_wire, keypan1, keypan2;
 ObjectID wire_item, wire, blood, empty_blood, hammer, son_hammer, hammer_tang, huge, win, look_right, look_left, look_up, look_down;
@@ -52,11 +52,12 @@ void goscene(SceneID scene) {
 }
 void bang() { hideObject(son_chong); gun_fire = playsound(gun_fire, "", "\\sounds\\gun_fire.mp3", false); showObject(chong_tang); startTimer(time_chong); }
 void bbak() { hideObject(son_hammer); glass_broken = playsound(glass_broken, "", "\\sounds\\glass_broken.mp3", false); showObject(hammer_tang); startTimer(time_hammer); }
-void winwin() { stopSound(scary_BGM); hideObject(son_hammer); hideObject(son_chong); enterScene(sc_win); goscene(sc_win);  win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false);
-}
+void winwin() { stopSound(scary_BGM); hideObject(son_hammer); hideObject(son_chong); hideObject(pb); enterScene(sc_win); goscene(sc_win); win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false); startTimer(ending_time); }
 void timerControl(TimerID timer) {
 	if (timer == time_chong) { hideObject(chong_tang); showObject(son_chong); setTimer(time_chong, chong_tang_time); }
 	else if (timer == time_hammer) { hideObject(hammer_tang); showObject(son_hammer); setTimer(time_hammer, hammer_tang_time); }
+	else if (timer == ending_time && ending_y < 0) { ending_y++; locateObject(ending, sc_win, 0, ending_y); setTimer(ending_time, ending_speed); startTimer(ending_time); }
+	else if (timer == ending_time && ending_y == 0) { ending_y = -1400; locateObject(ending, sc_win, 0, ending_y); setTimer(ending_time, ending_speed); startTimer(ending_time); }
 }
 void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10)) button_sound = playsound(button_sound, "", "\\sounds\\elevator.mp3", false);
@@ -97,12 +98,12 @@ void keyboardControl(KeyCode code, KeyState state) {
 				else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan2, 200 + 25 * key_count, 434, true);
 			}
 		}
-		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else {showMessage("WRONG PASSWORD!!!\n"); wrong_sound = playsound(wrong_sound, "", "\\sounds\\wrong_sound.mp3", false);}
+		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else { showMessage("WRONG PASSWORD!!!\n"); wrong_sound = playsound(wrong_sound, "", "\\sounds\\wrong_sound.mp3", false); }
 	}
-	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {hideObject(num[key_count]); key_count--;}
+	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) { hideObject(num[key_count]); key_count--; }
 }
 void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
-	if (getHandObject() == hammer) { showObject(son_hammer); if (obj == light_1|| obj == light_2) bbak(); }
+	if (getHandObject() == hammer) { showObject(son_hammer); if (obj == light_1 || obj == light_2) bbak(); }
 	else if (getHandObject() != hammer) hideObject(son_hammer);
 	if (getHandObject() == chong) { showObject(son_chong); if (obj == scary) bang(); }
 	else if (getHandObject() != chong) hideObject(son_chong);
@@ -140,8 +141,7 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (obj == light_2 && getHandObject() == hammer && hit >= 6 && hit < 10) hit++;
 	else if (obj == light_2 && getHandObject() == hammer && hit == 10) hideObject(light_2);
 	else if (obj == light_1)  showObject(hammer);
-	else if (obj == roofin && getHandObject() == key) { hideObject(roofin); key_sound = playsound(key_sound, "", "\\sounds\\key.mp3", false);
-	}
+	else if (obj == roofin && getHandObject() == key) { hideObject(roofin); key_sound = playsound(key_sound, "", "\\sounds\\key.mp3", false); }
 	else if (obj == roofin1) hideObject(roofin1);
 	else if (obj == roofin2) hideObject(roofin2);
 	else if (obj == roofin3) hideObject(roofin3);
@@ -213,5 +213,6 @@ int main() {
 	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true);
 	time_chong = createTimer(chong_tang_time);
 	time_hammer = createTimer(hammer_tang_time);
+	ending_time = createTimer(ending_speed);
 	startGame(sc_start);
 }
