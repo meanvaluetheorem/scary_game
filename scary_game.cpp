@@ -6,7 +6,7 @@
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
 SoundID scary_BGM;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
-ObjectID sb, rb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
+ObjectID sb, pb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
 ObjectID wire_item, wire, blood, empty_blood, hammer, huge, win, look_right, look_left, look_up, look_down;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
 ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary, num[4];
@@ -25,10 +25,10 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 void goscene(SceneID scene) {
 	enterScene(scene);
 	locateObject(eb, scene, 500, 25);
-	locateObject(rb, scene, 500, 55);
+	locateObject(pb, scene, 500, 55);
 	locateObject(wire, scene, 24, 0);
-	showObject(rb);
-	if (scene == sc_start) { scene_add = 0; locateObject(eb, scene, 368, 55); hideObject(rb); }
+	showObject(pb);
+	if (scene == sc_start) { scene_add = 0; locateObject(eb, scene, 368, 55); hideObject(pb); }
 	else if (scene == sc_front || scene == sc_back || scene == sc_right || scene == sc_left) {
 		if (scene == sc_front)scene_add = 1;
 		else if (scene == sc_back)scene_add = 2;
@@ -98,7 +98,7 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (getHandObject() == glasses_wire) showObject(wire);
 	else if (getHandObject() != glasses_wire) hideObject(wire);
 	if (obj == sb) goscene(sc_front);
-	else if (obj == rb) goscene(sc_start);
+	else if (obj == pb) goscene(sc_start);
 	else if (obj == eb)endGame();
 	else if (obj == win)endGame();
 	else if (obj == wire_item) pickObject(wire_item);
@@ -150,7 +150,7 @@ int main() {
 		start_sc = Object("\\images\\start_sc.png", sc_start, 0, 0, true);
 		sb = Object("\\images\\start.png", sc_start, 38, 55, true);
 		eb = Object("\\images\\end.png", sc_start, 368, 55, true);
-		rb = Object("\\images\\restart.png", sc_front, 500, 55, true);
+		pb = Object("\\images\\pause.png", sc_front, 500, 55, true);
 		gamesc_front = Object("\\images\\gamesc_front.png", sc_front, 0, 0, true);
 		numpan2 = Object("\\images\\numpan2.png", sc_front, 420, 316, true);
 		no_scary = Object("\\images\\no_scary.png", sc_front, 304, 396, true);
@@ -190,7 +190,7 @@ int main() {
 		wire = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
 		win = Object("\\images\\win.png", sc_front, 0, 0, false);
 		defineCombination(glasses, wire_item, glasses_wire);
-		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
+		//scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
 	}
 	startGame(sc_start);
 }
