@@ -22,8 +22,10 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 }
 void goscene(SceneID scene) {
 	enterScene(scene);
-	locateObject(eb, scene, 500, 25);
-	locateObject(pb, scene, 500, 55);
+	locateObject(sonchong, scene, 300, 0);
+	locateObject(chongtang, scene, 300, 0);
+	locateObject(eb, scene, 650, 25);
+	locateObject(pb, scene, 650, 60);
 	locateObject(wire, scene, 24, 0);
 	showObject(pb);
 	if (scene == sc_start) { scene_add = 0; locateObject(eb, scene, 368, 55); hideObject(pb); }
@@ -46,13 +48,7 @@ void goscene(SceneID scene) {
 }
 void bang() {hideObject(sonchong);showObject(chongtang);startTimer(timechong);}
 void winwin() {stopSound(scary_BGM);enterScene(sc_win);goscene(sc_win);}
-void timerComtrol(TimerID timer) {
-	if (timer == timechong) {
-	hideObject(chongtang);
-	showObject(sonchong);
-	setTimer(timechong, 0.1f);
-	}
-}
+void timerComtrol(TimerID timer) {if (timer == timechong) {hideObject(chongtang);showObject(sonchong);setTimer(timechong, 0.02f);}}
 void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
 		key_count++;
@@ -95,7 +91,8 @@ void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {hideObject(num[key_count]); key_count--;}
 }
 void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
-	if (getHandObject() == chong) bang();
+	if (getHandObject() == chong) {showObject(sonchong);if (obj == scary) bang();}
+	else if (getHandObject() != chong) hideObject(sonchong);
 	if (getHandObject() == glasses) hideObject(empty_blood);
 	else if (getHandObject() == glasses_wire) showObject(wire);
 	else if (getHandObject() != glasses_wire) hideObject(wire);
@@ -139,7 +136,6 @@ int main() {
 	setKeyboardCallback(keyboardControl);
 	setMouseCallback(mouseControl);
 	setTimerCallback(timerComtrol);
-	timechong = createTimer(0.1f);
 	sc_start = createScene("", "\\images\\sc.png");
 	sc_front = createScene("", "\\images\\sc.png");
 	sc_back = createScene("", "\\images\\sc.png");
@@ -155,7 +151,7 @@ int main() {
 	start_sc = Object("\\images\\start_sc.png", sc_start, 0, 0, true);
 	sb = Object("\\images\\start.png", sc_start, 38, 55, true);
 	eb = Object("\\images\\end.png", sc_start, 368, 55, true);
-	pb = Object("\\images\\pause.png", sc_front, 500, 55, true);
+	pb = Object("\\images\\pause.png", sc_front, 650, 60, true);
 	gamesc_front = Object("\\images\\gamesc_front.png", sc_front, 0, 0, true);
 	numpan2 = Object("\\images\\numpan2.png", sc_front, 420, 316, true);
 	no_scary = Object("\\images\\no_scary.png", sc_front, 304, 396, true);
@@ -181,8 +177,8 @@ int main() {
 	light_2 = Object("\\images\\light.png", sc_up, 420, 121, true);
 	gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
 	chong = Object("\\images\\chong.png", sc_down, 131, 229, true);
-	sonchong = Object("\\images\\sonchong.png", sc_down, 300, 0, false);/////////////////////
-	chongtang = Object("\\images\\chongtang.png", sc_down, 300, 0, false);///////////////////
+	sonchong = Object("\\images\\sonchong.png", sc_down, 300, 0, false);
+	chongtang = Object("\\images\\chongtang.png", sc_down, 300, 0, false);
 	gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 	roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
 	glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
@@ -198,6 +194,7 @@ int main() {
 	win = Object("\\images\\win.png", sc_win, 0, 0, true);
 	ending = Object("\\images\\ending.png", sc_win, 0, 0, false);
 	defineCombination(glasses, wire_item, glasses_wire);
-	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
+	//scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
+	timechong = createTimer(0.02f);
 	startGame(sc_start);
 }
