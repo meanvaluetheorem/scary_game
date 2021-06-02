@@ -174,7 +174,7 @@ int main() {
 		light_1 = Object("\\images\\light.png", sc_up, 13, 122, true);
 		light_2 = Object("\\images\\light.png", sc_up, 420, 121, true);
 		gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
-		kal = Object("\\images\\kal.png", sc_down, 131, 229, true);
+		kal = Object("\\images\\chong.png", sc_down, 131, 229, true);
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 		roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
 		glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
