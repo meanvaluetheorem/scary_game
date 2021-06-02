@@ -3,7 +3,7 @@
 #include<bangtal.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
 float chongtangtime = 0.04f;
-SoundID scary_BGM;
+SoundID scary_BGM, gunfire;
 TimerID timechong;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
 ObjectID sb, pb, eb, start_sc, light_1, light_2, key, chong, sonchong, chongtang, glasses, glasses_wire, keypan1, keypan2;
@@ -47,7 +47,7 @@ void goscene(SceneID scene) {
 	else if (scene == sc_roof) scene_add = 9;
 	else if (scene == sc_keypan2) { scene_add = 10; locateObject(look_down, scene, 215, 256); }
 }
-void bang() {hideObject(sonchong);showObject(chongtang);startTimer(timechong);}
+void bang() {hideObject(sonchong); gunfire = playsound(gunfire, "", "\\sounds\\gunfire.wav"); showObject(chongtang);startTimer(timechong);}
 void winwin() {stopSound(scary_BGM);enterScene(sc_win);goscene(sc_win);}
 void timerComtrol(TimerID timer) {if (timer == timechong) {hideObject(chongtang);showObject(sonchong);setTimer(timechong, chongtangtime);}}
 void keyboardControl(KeyCode code, KeyState state) {
@@ -195,7 +195,7 @@ int main() {
 	win = Object("\\images\\win.png", sc_win, 0, 0, true);
 	ending = Object("\\images\\ending.png", sc_win, 0, 0, false);
 	defineCombination(glasses, wire_item, glasses_wire);
-	//scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
+	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
 	timechong = createTimer(chongtangtime);
 	startGame(sc_start);
 }
