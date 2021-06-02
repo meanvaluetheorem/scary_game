@@ -5,8 +5,9 @@
 #include<math.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
 SoundID scary_BGM;
+TimerID timechong;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2;
-ObjectID sb, pb, eb, start_sc, light_1, light_2, key, kal, glasses, glasses_wire, keypan1, keypan2;
+ObjectID sb, pb, eb, start_sc, light_1, light_2, key, chong, sonchong, chongtang, glasses, glasses_wire, keypan1, keypan2;
 ObjectID wire_item, wire, blood, empty_blood, hammer, huge, win, look_right, look_left, look_up, look_down;
 ObjectID gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
 ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary, num[4];
@@ -20,6 +21,11 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
 	playSound(sound, true);
 	return sound;
+}
+void bang() {
+	hideObject(sonchong);
+	showObject(chongtang);
+	startTimer(timechong);
 }
 void goscene(SceneID scene) {
 	enterScene(scene);
@@ -50,6 +56,13 @@ void winwin() {
 	showMessage("DORE OPENED\n");
 	showObject(win);
 	goscene(sc_front);
+}
+void timerComtrol(TimerID timer) {
+	if (timer == timechong) {
+	hideObject(chongtang);
+	showObject(sonchong);
+	timechong = createTimer(0.1);
+	}
 }
 void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
@@ -93,6 +106,7 @@ void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {hideObject(num[key_count]); key_count--;}
 }
 void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
+	if (getHandObject() == chong) bang();
 	if (getHandObject() == glasses) hideObject(empty_blood);
 	else if (getHandObject() == glasses_wire) showObject(wire);
 	else if (getHandObject() != glasses_wire) hideObject(wire);
@@ -104,7 +118,7 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (obj == glasses) pickObject(glasses);
 	else if (obj == glasses_wire) pickObject(glasses_wire);
 	else if (obj == key) pickObject(key);
-	else if (obj == kal) pickObject(kal);
+	else if (obj == chong) pickObject(chong);
 	else if (obj == hammer) pickObject(hammer);
 	else if (obj == huge) pickObject(huge);
 	else if (obj == blood && getHandObject() == huge) hideObject(blood);
@@ -119,8 +133,8 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (obj == look_right && scene_add == 3 || obj == look_left && scene_add == 4) goscene(sc_back);
 	else if (obj == roofinf) goscene(sc_roof);
 	else if (obj == small_scary || obj == no_scary) goscene(sc_scary);
-	else if (obj == scary && getHandObject() == kal && hit < 2) hit++;
-	else if (obj == scary && getHandObject() == kal && hit == 2) { hideObject(scary); hideObject(small_scary); }
+	else if (obj == scary && getHandObject() == chong && hit < 2) hit++;
+	else if (obj == scary && getHandObject() == chong && hit == 2) { hideObject(scary); hideObject(small_scary); }
 	else if (obj == light_1 && getHandObject() == hammer && hit >= 2 && hit < 6) hit++;
 	else if (obj == light_1 && getHandObject() == hammer && hit == 6) hideObject(light_1);
 	else if (obj == light_2 && getHandObject() == hammer && hit >= 6 && hit < 10) hit++;
@@ -134,7 +148,9 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 int main() {
 	setKeyboardCallback(keyboardControl);
 	setMouseCallback(mouseControl);
+	setTimerCallback(timerComtrol);
 	{
+		timechong = createTimer(0.1);
 		sc_start = createScene("", "\\images\\sc.png");
 		sc_front = createScene("", "\\images\\sc.png");
 		sc_back = createScene("", "\\images\\sc.png");
@@ -174,7 +190,9 @@ int main() {
 		light_1 = Object("\\images\\light.png", sc_up, 13, 122, true);
 		light_2 = Object("\\images\\light.png", sc_up, 420, 121, true);
 		gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
-		kal = Object("\\images\\chong.png", sc_down, 131, 229, true);
+		chong = Object("\\images\\chong.png", sc_down, 131, 229, true);
+		sonchong = Object("\\images\\sonchong.png", sc_down, 300, 0, false);/////////////////////
+		chongtang = Object("\\images\\chongtang.png", sc_down, 300, 0, false);///////////////////
 		gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 		roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
 		glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
