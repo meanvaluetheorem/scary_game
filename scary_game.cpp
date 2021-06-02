@@ -147,9 +147,9 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (obj == roofin3) hideObject(roofin3);
 }
 int main() {
+	setTimerCallback(timerControl);
 	setKeyboardCallback(keyboardControl);
 	setMouseCallback(mouseControl);
-	setTimerCallback(timerControl);
 	sc_start = createScene("", "\\images\\sc.png");
 	sc_front = createScene("", "\\images\\sc.png");
 	sc_back = createScene("", "\\images\\sc.png");
