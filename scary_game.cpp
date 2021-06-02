@@ -16,9 +16,10 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 	if (shown == true) showObject(object);
 	return object;
 }
-SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
+SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, bool loop) {
 	sound = createSound(soundfile);
-	playSound(sound, true);
+	if (loop == true) playSound(sound, true);
+	else playSound(sound, false);
 	return sound;
 }
 void goscene(SceneID scene) {
@@ -47,7 +48,7 @@ void goscene(SceneID scene) {
 	else if (scene == sc_roof) scene_add = 9;
 	else if (scene == sc_keypan2) { scene_add = 10; locateObject(look_down, scene, 215, 256); }
 }
-void bang() {hideObject(sonchong); gunfire = playsound(gunfire, "", "\\sounds\\gunfire.wav"); showObject(chongtang);startTimer(timechong);}
+void bang() {hideObject(sonchong); gunfire = playsound(gunfire, "", "\\sounds\\gunfire.mp3", false); showObject(chongtang);startTimer(timechong);}
 void winwin() {stopSound(scary_BGM);enterScene(sc_win);goscene(sc_win);}
 void timerComtrol(TimerID timer) {if (timer == timechong) {hideObject(chongtang);showObject(sonchong);setTimer(timechong, chongtangtime);}}
 void keyboardControl(KeyCode code, KeyState state) {
@@ -195,7 +196,7 @@ int main() {
 	win = Object("\\images\\win.png", sc_win, 0, 0, true);
 	ending = Object("\\images\\ending.png", sc_win, 0, 0, false);
 	defineCombination(glasses, wire_item, glasses_wire);
-	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
+	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true);
 	timechong = createTimer(chongtangtime);
 	startGame(sc_start);
 }
