@@ -18,7 +18,6 @@ ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
 }
 SoundID playsound(SoundID sound, const char* soundname, const char* soundfile) {
 	sound = createSound(soundfile);
-	showMessage("CAUTION!!!\nBGM IS LOUD");
 	playSound(sound, true);
 	return sound;
 }
@@ -190,7 +189,7 @@ int main() {
 		wire = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
 		win = Object("\\images\\win.png", sc_front, 0, 0, false);
 		defineCombination(glasses, wire_item, glasses_wire);
-		//scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
+		scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3");
 	}
 	startGame(sc_start);
 }
