@@ -189,8 +189,8 @@ int main() {
 	chong = Object("\\images\\chong.png", sc_down, 131, 229, true);
 	sonchong = Object("\\images\\sonchong.png", sc_down, 300, 0, false);
 	chongtang = Object("\\images\\chongtang.png", sc_down, 300, 0, false);
-	sonhammer = Object("\\images\\sonhammer.png", sc_scary, 400, 0, false);///////////////////
-	hammertang = Object("\\images\\hammertang.png", sc_scary, 200, -100, false);/////////////////
+	sonhammer = Object("\\images\\sonhammer.png", sc_scary, 400, 0, false);
+	hammertang = Object("\\images\\hammertang.png", sc_scary, 200, -100, false);
 	gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 	roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
 	glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
