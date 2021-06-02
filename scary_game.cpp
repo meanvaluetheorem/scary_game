@@ -1,7 +1,7 @@
 ﻿///////////////////////////////////////////////   띄어쓰기 줄바꾸기 금지   ///////////////////////////////////////////////
 #include<stdio.h>
 #include<bangtal.h>
-int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
+int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y=-1400;
 float chong_tang_time = 0.04f, hammer_tang_time = 0.08f;
 SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
 TimerID time_chong, time_hammer;
@@ -208,7 +208,7 @@ int main() {
 	look_down = Object("\\images\\look_down.png", sc_front, 215, 0, true);
 	wire = Object("\\images\\gamesc_wire.png", sc_front, 24, 0, false);
 	win = Object("\\images\\win.png", sc_win, 0, 0, true);
-	ending = Object("\\images\\ending.png", sc_win, 0, 0, false);
+	ending = Object("\\images\\ending.png", sc_win, 0, ending_y, false);
 	defineCombination(glasses, wire_item, glasses_wire);
 	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true);
 	time_chong = createTimer(chong_tang_time);
