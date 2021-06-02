@@ -2,12 +2,12 @@
 #include<stdio.h>
 #include<bangtal.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
-float chongtangtime = 0.04f;
-SoundID scary_BGM, gunfire;
-TimerID timechong;
+float chongtangtime = 0.04f, hammertangtime = 0.08f;
+SoundID scary_BGM, gunfire, glassbroken;
+TimerID timechong, timehammer;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
 ObjectID sb, pb, eb, start_sc, light_1, light_2, key, chong, sonchong, chongtang, glasses, glasses_wire, keypan1, keypan2;
-ObjectID wire_item, wire, blood, empty_blood, hammer, huge, win, look_right, look_left, look_up, look_down;
+ObjectID wire_item, wire, blood, empty_blood, hammer, sonhammer, hammertang, huge, win, look_right, look_left, look_up, look_down;
 ObjectID ending, gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
 ObjectID roofin, roofin1, roofin2, roofin3, roofinf, roofout, scary, small_scary, no_scary, empty_scary, num[4];
 ObjectID Object(const char* image, SceneID scene, int x, int y, bool shown) {
@@ -26,6 +26,8 @@ void goscene(SceneID scene) {
 	enterScene(scene);
 	locateObject(sonchong, scene, 300, 0);
 	locateObject(chongtang, scene, 300, 0);
+	locateObject(sonhammer, scene, 400, 0);
+	locateObject(hammertang, scene, 200, -100);
 	locateObject(eb, scene, 650, 25);
 	locateObject(pb, scene, 650, 60);
 	locateObject(wire, scene, 24, 0);
@@ -48,9 +50,13 @@ void goscene(SceneID scene) {
 	else if (scene == sc_roof) scene_add = 9;
 	else if (scene == sc_keypan2) { scene_add = 10; locateObject(look_down, scene, 215, 256); }
 }
-void bang() {hideObject(sonchong); gunfire = playsound(gunfire, "", "\\sounds\\gunfire.mp3", false); showObject(chongtang);startTimer(timechong);}
+void bang() { hideObject(sonchong); gunfire = playsound(gunfire, "", "\\sounds\\gunfire.mp3", false); showObject(chongtang); startTimer(timechong); }
+void bbak() { hideObject(sonhammer); glassbroken = playsound(glassbroken, "", "\\sounds\\glassbroken.mp3", false); showObject(hammertang); startTimer(timehammer); }
 void winwin() {stopSound(scary_BGM);enterScene(sc_win);goscene(sc_win);}
-void timerComtrol(TimerID timer) {if (timer == timechong) {hideObject(chongtang);showObject(sonchong);setTimer(timechong, chongtangtime);}}
+void timerControl(TimerID timer) {
+	if (timer == timechong) { hideObject(chongtang); showObject(sonchong); setTimer(timechong, chongtangtime); }
+	else if (timer == timehammer) { hideObject(hammertang); showObject(sonhammer); setTimer(timehammer, hammertangtime); }
+}
 void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
 		key_count++;
@@ -93,7 +99,9 @@ void keyboardControl(KeyCode code, KeyState state) {
 	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {hideObject(num[key_count]); key_count--;}
 }
 void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
-	if (getHandObject() == chong) {showObject(sonchong);if (obj == scary) bang();}
+	if (getHandObject() == hammer) { showObject(sonhammer); if (obj == light_1|| obj == light_2) bbak(); }
+	else if (getHandObject() != hammer) hideObject(sonhammer);
+	if (getHandObject() == chong) { showObject(sonchong); if (obj == scary) bang(); }
 	else if (getHandObject() != chong) hideObject(sonchong);
 	if (getHandObject() == glasses) hideObject(empty_blood);
 	else if (getHandObject() == glasses_wire) showObject(wire);
@@ -137,7 +145,7 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 int main() {
 	setKeyboardCallback(keyboardControl);
 	setMouseCallback(mouseControl);
-	setTimerCallback(timerComtrol);
+	setTimerCallback(timerControl);
 	sc_start = createScene("", "\\images\\sc.png");
 	sc_front = createScene("", "\\images\\sc.png");
 	sc_back = createScene("", "\\images\\sc.png");
@@ -174,13 +182,15 @@ int main() {
 	roofin2 = Object("\\images\\roofin2.png", sc_up, 151, 181, true);
 	roofin1 = Object("\\images\\roofin1.png", sc_up, 151, 181, true);
 	roofin = Object("\\images\\roofin.png", sc_up, 151, 181, true);
-	key = Object("\\images\\key.png", sc_up, 438, 144, true);
+	key = Object("\\images\\key.png", sc_up, 438, 400, true);
 	light_1 = Object("\\images\\light.png", sc_up, 13, 122, true);
 	light_2 = Object("\\images\\light.png", sc_up, 420, 121, true);
 	gamesc_down = Object("\\images\\gamesc_down.png", sc_down, 0, 0, true);
 	chong = Object("\\images\\chong.png", sc_down, 131, 229, true);
 	sonchong = Object("\\images\\sonchong.png", sc_down, 300, 0, false);
 	chongtang = Object("\\images\\chongtang.png", sc_down, 300, 0, false);
+	sonhammer = Object("\\images\\sonhammer.png", sc_scary, 400, 0, false);///////////////////
+	hammertang = Object("\\images\\hammertang.png", sc_scary, 200, -100, false);/////////////////
 	gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 	roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
 	glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
@@ -198,5 +208,6 @@ int main() {
 	defineCombination(glasses, wire_item, glasses_wire);
 	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true);
 	timechong = createTimer(chongtangtime);
+	timehammer = createTimer(hammertangtime);
 	startGame(sc_start);
 }
