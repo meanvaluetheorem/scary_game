@@ -3,7 +3,7 @@
 #include<bangtal.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, };
 float chong_tang_time = 0.04f, hammer_tang_time = 0.08f;
-SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, falling;
+SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
 TimerID time_chong, time_hammer;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
 ObjectID sb, pb, eb, start_sc, light_1, light_2, key, chong, son_chong, chong_tang, glasses, glasses_wire, keypan1, keypan2;
@@ -52,7 +52,8 @@ void goscene(SceneID scene) {
 }
 void bang() { hideObject(son_chong); gun_fire = playsound(gun_fire, "", "\\sounds\\gun_fire.mp3", false); showObject(chong_tang); startTimer(time_chong); }
 void bbak() { hideObject(son_hammer); glass_broken = playsound(glass_broken, "", "\\sounds\\glass_broken.mp3", false); showObject(hammer_tang); startTimer(time_hammer); }
-void winwin() { stopSound(scary_BGM); hideObject(son_hammer); hideObject(son_chong); enterScene(sc_win); goscene(sc_win); }
+void winwin() { stopSound(scary_BGM); hideObject(son_hammer); hideObject(son_chong); enterScene(sc_win); goscene(sc_win);  win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false);
+}
 void timerControl(TimerID timer) {
 	if (timer == time_chong) { hideObject(chong_tang); showObject(son_chong); setTimer(time_chong, chong_tang_time); }
 	else if (timer == time_hammer) { hideObject(hammer_tang); showObject(son_hammer); setTimer(time_hammer, hammer_tang_time); }
@@ -96,7 +97,7 @@ void keyboardControl(KeyCode code, KeyState state) {
 				else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan2, 200 + 25 * key_count, 434, true);
 			}
 		}
-		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else {showMessage("WRONG PASSWORD!!!\n"); falling = playsound(falling, "", "\\sounds\\falling.mp3", false);}
+		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else {showMessage("WRONG PASSWORD!!!\n"); wrong_sound = playsound(wrong_sound, "", "\\sounds\\wrong_sound.mp3", false);}
 	}
 	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) {hideObject(num[key_count]); key_count--;}
 }
