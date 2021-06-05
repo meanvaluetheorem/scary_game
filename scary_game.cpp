@@ -3,7 +3,7 @@
 #include<bangtal.h>
 bool brighter = false;
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y = -1400;
-float chong_tang_time = 0.04f, hammer_tang_time = 0.08f, ending_speed = 0.005f, brightness=1.0f, brightness_speed=0.01f;
+float chong_tang_time = 0.04f, hammer_tang_time = 0.08f, ending_speed = 0.005f, brightness = 1.0f, brightness_speed = 0.01f;
 SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
 TimerID time_chong, time_hammer, ending_time, brightness_time;
 SceneID sc_play, sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
@@ -60,7 +60,7 @@ void timerControl(TimerID timer) {
 		if (brighter == false) brightness -= 0.005;
 		else brightness += 0.005;
 		if (brightness <= 0.4)brighter = true;
-		else if(brightness >= 1.0)brighter = false;
+		else if (brightness >= 1.0)brighter = false;
 		setSceneLight(sc_play, brightness);
 		setTimer(brightness_time, brightness_speed);
 		startTimer(brightness_time);
