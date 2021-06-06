@@ -1,5 +1,4 @@
-﻿////////////////////////////////////////////////   띄어쓰기 줄바꾸기 금지   ////////////////////////////////////////////////g
-#include<stdio.h>
+﻿#include<stdio.h>
 #include<bangtal.h>
 bool brighter = false;
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y = -1400;
