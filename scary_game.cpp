@@ -3,10 +3,10 @@
 #include<bangtal.h>
 bool brighter = false;
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y = -1400;
-float chong_tang_time = 0.04f, hammer_tang_time = 0.08f, ending_speed = 0.005f, brightness = 1.0f, brightness_speed = 0.01f;
+float chong_tang_time = 0.05f, hammer_tang_time = 0.08f, ending_speed = 0.005f;
 SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
-TimerID time_chong, time_hammer, ending_time, brightness_time;
-SceneID sc_play, sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
+TimerID time_chong, time_hammer, ending_time;
+SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;
 ObjectID sb, pb, eb, start_sc, light_1, light_2, key, chong, son_chong, chong_tang, glasses, glasses_wire, keypan1, keypan2;
 ObjectID wire_item, wire, blood, empty_blood, hammer, son_hammer, hammer_tang, huge, win, look_right, look_left, look_up, look_down;
 ObjectID ending, gamesc_front, gamesc_right, gamesc_left, gamesc_up, gamesc_down, gamesc_back, gamesc_roof, numpan1, numpan2;
@@ -24,12 +24,11 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, b
 	return sound;
 }
 void goscene(SceneID scene) {
-	sc_play = scene;
 	enterScene(scene);
 	locateObject(son_chong, scene, 300, 0);
 	locateObject(chong_tang, scene, 300, 0);
 	locateObject(son_hammer, scene, 400, 0);
-	locateObject(hammer_tang, scene, 200, -100);
+	locateObject(hammer_tang, scene, 250, -100);
 	locateObject(eb, scene, 650, 25);
 	locateObject(pb, scene, 650, 60);
 	locateObject(wire, scene, 24, 0);
@@ -56,15 +55,6 @@ void bang() { hideObject(son_chong); gun_fire = playsound(gun_fire, "", "\\sound
 void bbak() { hideObject(son_hammer); glass_broken = playsound(glass_broken, "", "\\sounds\\glass_broken.mp3", false); showObject(hammer_tang); startTimer(time_hammer); }
 void winwin() { enterScene(sc_win); stopSound(scary_BGM); locateObject(eb, sc_win, 650, 25); win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false); startTimer(ending_time); }
 void timerControl(TimerID timer) {
-	if (timer == brightness_time) {
-		if (brighter == false) brightness -= 0.005;
-		else brightness += 0.005;
-		if (brightness <= 0.4)brighter = true;
-		else if (brightness >= 1.0)brighter = false;
-		setSceneLight(sc_play, brightness);
-		setTimer(brightness_time, brightness_speed);
-		startTimer(brightness_time);
-	}
 	if (timer == time_chong) { hideObject(chong_tang); showObject(son_chong); setTimer(time_chong, chong_tang_time); }
 	else if (timer == time_hammer) { hideObject(hammer_tang); showObject(son_hammer); setTimer(time_hammer, hammer_tang_time); }
 	else if (timer == ending_time && ending_y < 0) { ending_y++; locateObject(ending, sc_win, 0, ending_y); setTimer(ending_time, ending_speed); startTimer(ending_time); }
@@ -205,7 +195,7 @@ int main() {
 	son_chong = Object("\\images\\son_chong.png", sc_down, 300, 0, false);
 	chong_tang = Object("\\images\\chong_tang.png", sc_down, 300, 0, false);
 	son_hammer = Object("\\images\\son_hammer.png", sc_scary, 400, 0, false);
-	hammer_tang = Object("\\images\\hammer_tang.png", sc_scary, 200, -100, false);
+	hammer_tang = Object("\\images\\hammer_tang.png", sc_scary, 250, -100, false);
 	gamesc_roof = Object("\\images\\gamesc_roof.png", sc_roof, 0, 0, true);
 	roofout = Object("\\images\\roofout.png", sc_roof, 175, 60, true);
 	glasses = Object("\\images\\glasses.png", sc_roof, 415, 163, true);
@@ -224,9 +214,6 @@ int main() {
 	scary_BGM = playsound(scary_BGM, "", "\\sounds\\BGM.mp3", true);
 	time_chong = createTimer(chong_tang_time);
 	time_hammer = createTimer(hammer_tang_time);
-	brightness_time = createTimer(brightness_speed);
 	ending_time = createTimer(ending_speed);
-	startTimer(brightness_time);
-	sc_play = sc_start;
 	startGame(sc_start);
 }
