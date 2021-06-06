@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////   띄어쓰기 줄바꾸기 금지   ////////////////////////////////////////////////glock
+﻿////////////////////////////////////////////////   띄어쓰기 줄바꾸기 금지   ////////////////////////////////////////////////g
 #include<stdio.h>
 #include<bangtal.h>
 bool brighter = false;
@@ -136,7 +136,7 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (obj == roofinf) goscene(sc_roof);
 	else if (obj == small_scary || obj == no_scary) goscene(sc_scary);
 	else if (obj == scary && getHandObject() == chong && hit < 2) hit++;
-	else if (obj == scary && getHandObject() == chong && hit == 2) { hideObject(scary); hideObject(small_scary); }
+	else if (obj == scary && getHandObject() == chong && hit == 2) { hideObject(scary); showMessage("OUT OF AMMO!!!"); hideObject(small_scary); }
 	else if (obj == light_1 && getHandObject() == hammer && hit >= 2 && hit < 6) hit++;
 	else if (obj == light_1 && getHandObject() == hammer && hit == 6) hideObject(light_1);
 	else if (obj == light_2 && getHandObject() == hammer && hit >= 6 && hit < 10) hit++;
