@@ -1,6 +1,5 @@
 ﻿#include<stdio.h>
 #include<bangtal.h>
-bool brighter = false;
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y = -1400;
 float chong_tang_time = 0.05f, hammer_tang_time = 0.08f, ending_speed = 0.005f;
 SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
