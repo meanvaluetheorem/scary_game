@@ -23,14 +23,16 @@ SoundID playsound(SoundID sound, const char* soundname, const char* soundfile, b
 }
 void goscene(SceneID scene) {
 	enterScene(scene);
-	locateObject(son_chong, scene, 300, 0);
-	locateObject(chong_tang, scene, 300, 0);
-	locateObject(son_hammer, scene, 400, 0);
-	locateObject(hammer_tang, scene, 250, -100);
 	locateObject(eb, scene, 650, 25);
-	locateObject(pb, scene, 650, 60);
-	locateObject(wire, scene, 24, 0);
-	showObject(pb);
+	if (scene != sc_win) {
+		locateObject(son_chong, scene, 300, 0);
+		locateObject(chong_tang, scene, 300, 0);
+		locateObject(son_hammer, scene, 400, 0);
+		locateObject(hammer_tang, scene, 250, -100);
+		locateObject(pb, scene, 650, 60);
+		locateObject(wire, scene, 24, 0);
+		showObject(pb);
+	}
 	if (scene == sc_start) { scene_add = 0; locateObject(eb, scene, 368, 55); hideObject(pb); }
 	else if (scene == sc_front || scene == sc_back || scene == sc_right || scene == sc_left) {
 		if (scene == sc_front)scene_add = 1;
@@ -48,10 +50,10 @@ void goscene(SceneID scene) {
 	else if (scene == sc_down) { scene_add = 8; locateObject(look_up, scene, 215, 570); }
 	else if (scene == sc_roof) scene_add = 9;
 	else if (scene == sc_keypan2) { scene_add = 10; locateObject(look_down, scene, 215, 256); }
+	else if (scene == sc_win) { scene_add = 11; setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, 0);	setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, 0); stopSound(scary_BGM); win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false); startTimer(ending_time); }
 }
-void bang() { hideObject(son_chong); gun_fire = playsound(gun_fire, "", "\\sounds\\gun_fire.mp3", false); showObject(chong_tang); startTimer(time_chong); }
-void bbak() { hideObject(son_hammer); glass_broken = playsound(glass_broken, "", "\\sounds\\glass_broken.mp3", false); showObject(hammer_tang); startTimer(time_hammer); }
-void winwin() { setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, 0);	setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, 0); enterScene(sc_win); stopSound(scary_BGM); locateObject(eb, sc_win, 650, 25); win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false); startTimer(ending_time); }
+void bang() { hideObject(son_chong); showObject(chong_tang); gun_fire = playsound(gun_fire, "", "\\sounds\\gun_fire.mp3", false); startTimer(time_chong); }
+void bbak() { hideObject(son_hammer); showObject(hammer_tang); glass_broken = playsound(glass_broken, "", "\\sounds\\glass_broken.mp3", false); startTimer(time_hammer); }
 void timerControl(TimerID timer) {
 	if (timer == time_chong) { hideObject(chong_tang); showObject(son_chong); setTimer(time_chong, chong_tang_time); }
 	else if (timer == time_hammer) { hideObject(hammer_tang); showObject(son_hammer); setTimer(time_hammer, hammer_tang_time); }
@@ -59,45 +61,47 @@ void timerControl(TimerID timer) {
 	else if (timer == ending_time && ending_y == 0) { ending_y = -1400; locateObject(ending, sc_win, 0, ending_y); setTimer(ending_time, ending_speed); startTimer(ending_time); }
 }
 void keyboardControl(KeyCode code, KeyState state) {
-	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10)) button_sound = playsound(button_sound, "", "\\sounds\\elevator.mp3", false);
-	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10) && code != KeyCode::KEY_BACKSPACE && key_count < 3) {
+	if (state == KeyState::KEY_PRESSED && (scene_add == 7 || scene_add == 10)) {
 		button_sound = playsound(button_sound, "", "\\sounds\\elevator.mp3", false);
-		key_count++;
-		if (code == KeyCode::KEY_1) key_input[key_count] = 1;
-		else if (code == KeyCode::KEY_2) key_input[key_count] = 2;
-		else if (code == KeyCode::KEY_3) key_input[key_count] = 3;
-		else if (code == KeyCode::KEY_4) key_input[key_count] = 4;
-		else if (code == KeyCode::KEY_5) key_input[key_count] = 5;
-		else if (code == KeyCode::KEY_6) key_input[key_count] = 6;
-		else if (code == KeyCode::KEY_7) key_input[key_count] = 7;
-		else if (code == KeyCode::KEY_8) key_input[key_count] = 8;
-		else if (code == KeyCode::KEY_9) key_input[key_count] = 9;
-		else key_count--;
-		for (int k = 0; k < 4; k++) {
-			if (scene_add == 7 && key_count == k) {
-				if (key_input[key_count] == 1)num[k] = Object("\\images\\num1.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 2)num[k] = Object("\\images\\num2.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 3)num[k] = Object("\\images\\num3.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 4)num[k] = Object("\\images\\num4.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 5)num[k] = Object("\\images\\num5.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 6)num[k] = Object("\\images\\num6.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 7)num[k] = Object("\\images\\num7.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 8)num[k] = Object("\\images\\num8.png", sc_keypan1, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+		if (code != KeyCode::KEY_BACKSPACE && key_count < 3) {
+			button_sound = playsound(button_sound, "", "\\sounds\\elevator.mp3", false);
+			key_count++;
+			if (code == KeyCode::KEY_1) key_input[key_count] = 1;
+			else if (code == KeyCode::KEY_2) key_input[key_count] = 2;
+			else if (code == KeyCode::KEY_3) key_input[key_count] = 3;
+			else if (code == KeyCode::KEY_4) key_input[key_count] = 4;
+			else if (code == KeyCode::KEY_5) key_input[key_count] = 5;
+			else if (code == KeyCode::KEY_6) key_input[key_count] = 6;
+			else if (code == KeyCode::KEY_7) key_input[key_count] = 7;
+			else if (code == KeyCode::KEY_8) key_input[key_count] = 8;
+			else if (code == KeyCode::KEY_9) key_input[key_count] = 9;
+			else key_count--;
+			for (int k = 0; k < 4; k++) {
+				if (scene_add == 7 && key_count == k) {
+					if (key_input[key_count] == 1)num[k] = Object("\\images\\num1.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 2)num[k] = Object("\\images\\num2.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 3)num[k] = Object("\\images\\num3.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 4)num[k] = Object("\\images\\num4.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 5)num[k] = Object("\\images\\num5.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 6)num[k] = Object("\\images\\num6.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 7)num[k] = Object("\\images\\num7.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 8)num[k] = Object("\\images\\num8.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan1, 200 + 25 * key_count, 434, true);
+				}
+				else if (scene_add == 10 && key_count == k) {
+					if (key_input[key_count] == 1)num[k] = Object("\\images\\num1.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 2)num[k] = Object("\\images\\num2.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 3)num[k] = Object("\\images\\num3.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 4)num[k] = Object("\\images\\num4.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 5)num[k] = Object("\\images\\num5.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 6)num[k] = Object("\\images\\num6.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 7)num[k] = Object("\\images\\num7.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 8)num[k] = Object("\\images\\num8.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+					else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan2, 200 + 25 * key_count, 434, true);
+				}
 			}
-			else if (scene_add == 10 && key_count == k) {
-				if (key_input[key_count] == 1)num[k] = Object("\\images\\num1.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 2)num[k] = Object("\\images\\num2.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 3)num[k] = Object("\\images\\num3.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 4)num[k] = Object("\\images\\num4.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 5)num[k] = Object("\\images\\num5.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 6)num[k] = Object("\\images\\num6.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 7)num[k] = Object("\\images\\num7.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 8)num[k] = Object("\\images\\num8.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-				else if (key_input[key_count] == 9)num[k] = Object("\\images\\num9.png", sc_keypan2, 200 + 25 * key_count, 434, true);
-			}
+			if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) goscene(sc_win); else { showMessage("WRONG PASSWORD!!!\n"); wrong_sound = playsound(wrong_sound, "", "\\sounds\\wrong_sound.mp3", false); }
 		}
-		if (key_count == 3) if (key_input[0] == 5 && key_input[1] == 4 && key_input[2] == 9 && key_input[3] == 1) winwin(); else { showMessage("WRONG PASSWORD!!!\n"); wrong_sound = playsound(wrong_sound, "", "\\sounds\\wrong_sound.mp3", false); }
 	}
 	if (state == KeyState::KEY_PRESSED && code == KeyCode::KEY_BACKSPACE && key_count > -1 && (scene_add == 7 || scene_add == 10)) { hideObject(num[key_count]); key_count--; }
 }
