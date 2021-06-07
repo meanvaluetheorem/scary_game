@@ -25,7 +25,7 @@
 ## **게임설명**
  + 아주 간단하게 써 놨습니다.
  + 게임플레이에 대한 자세한 내용은 영상을 참조해주세요!
- + //:>  <URL><>
+ + **Youtube link only for you!**: [영상으로](https://youtu.be/pfjDLaQZP_c)
   
   ---
   
