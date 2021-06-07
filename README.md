@@ -26,4 +26,5 @@ made by Kim Myeongseop and Kim Hyojoon (Ga Na Da soon-seo) ㈜CAU
 ㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿㉿
   
 凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸凸
-게임 다운 받는 방법 : repository scary_game => Setup_scary_game => Release => Setup_scary_game.msi(다운로드) => 게임 설치
+
+게임 다운 받는 방법: Setup_scary_game 폴더 => Release 폴더 => Setup_scary_game.msi 다운로드 => 게임 설치
