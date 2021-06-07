@@ -51,7 +51,7 @@ void goscene(SceneID scene) {
 }
 void bang() { hideObject(son_chong); gun_fire = playsound(gun_fire, "", "\\sounds\\gun_fire.mp3", false); showObject(chong_tang); startTimer(time_chong); }
 void bbak() { hideObject(son_hammer); glass_broken = playsound(glass_broken, "", "\\sounds\\glass_broken.mp3", false); showObject(hammer_tang); startTimer(time_hammer); }
-void winwin() { setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, 0); setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, 0); enterScene(sc_win); stopSound(scary_BGM); locateObject(eb, sc_win, 650, 25); win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false); startTimer(ending_time); }
+void winwin() { setGameOption(GameOption::GAME_OPTION_INVENTORY_BUTTON, 0);	setGameOption(GameOption::GAME_OPTION_MESSAGE_BOX_BUTTON, 0); enterScene(sc_win); stopSound(scary_BGM); locateObject(eb, sc_win, 650, 25); win_sound = playsound(win_sound, "", "\\sounds\\win_sound.mp3", false); startTimer(ending_time); }
 void timerControl(TimerID timer) {
 	if (timer == time_chong) { hideObject(chong_tang); showObject(son_chong); setTimer(time_chong, chong_tang_time); }
 	else if (timer == time_hammer) { hideObject(hammer_tang); showObject(son_hammer); setTimer(time_hammer, hammer_tang_time); }
@@ -213,5 +213,6 @@ int main() {
 	time_chong = createTimer(chong_tang_time);
 	time_hammer = createTimer(hammer_tang_time);
 	ending_time = createTimer(ending_speed);
+	showMessage("Very Very Strawberry Scary Game Start !!!");
 	startGame(sc_start);
 }
