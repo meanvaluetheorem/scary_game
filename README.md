@@ -93,8 +93,9 @@
   ## 3. 종료화면
   
   ![12](https://user-images.githubusercontent.com/81074212/121008036-7c25b080-c7cd-11eb-899c-ed4f243eb511.png)
-![13](https://user-images.githubusercontent.com/81074212/121008046-7def7400-c7cd-11eb-9c0c-cc6641f83a79.png)
+ ![13](https://user-images.githubusercontent.com/81074212/121022765-9c5d6b80-c7dd-11eb-9159-81c679c37ffb.png)
 
+ 
   + 플레이 해주셔서 감사합니다!!
 
 
