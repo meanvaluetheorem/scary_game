@@ -138,11 +138,11 @@ void mouseControl(ObjectID obj, int x, int y, MouseAction act) {
 	else if (obj == roofinf) goscene(sc_roof);
 	else if (obj == small_scary || obj == no_scary) goscene(sc_scary);
 	else if (obj == scary && getHandObject() == chong && hit < 2) hit++;
-	else if (obj == scary && getHandObject() == chong && hit == 2) { hideObject(scary); showMessage("OUT OF AMMO!!!"); hideObject(small_scary); }
-	else if (obj == light_1 && getHandObject() == hammer && hit >= 2 && hit < 6) hit++;
-	else if (obj == light_1 && getHandObject() == hammer && hit == 6) hideObject(light_1);
-	else if (obj == light_2 && getHandObject() == hammer && hit >= 6 && hit < 10) hit++;
-	else if (obj == light_2 && getHandObject() == hammer && hit == 10) hideObject(light_2);
+	else if (obj == scary && getHandObject() == chong && hit == 2) { hit++; hideObject(scary); showMessage("OUT OF AMMO!!!"); hideObject(small_scary); }
+	else if (obj == light_1 && getHandObject() == hammer && hit > 2 && hit < 7) hit++;
+	else if (obj == light_1 && getHandObject() == hammer && hit == 7) { hit++; hideObject(light_1); }
+	else if (obj == light_2 && getHandObject() == hammer && hit > 7 && hit < 12) hit++;
+	else if (obj == light_2 && getHandObject() == hammer && hit == 12) { hit++; hideObject(light_2); }
 	else if (obj == light_1)  showObject(hammer);
 	else if (obj == roofin && getHandObject() == key) { hideObject(roofin); key_sound = playsound(key_sound, "", "\\sounds\\key.mp3", false); }
 	else if (obj == roofin1) hideObject(roofin1);
