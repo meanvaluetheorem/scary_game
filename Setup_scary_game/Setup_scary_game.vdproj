@@ -219,12 +219,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5988D331C6274924835ABB994436E72A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5A9BC5CDB78C4A3CA43BE830970DF1B4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -370,12 +364,6 @@
         "Entry"
         {
         "MsmKey" = "8:_9BA33AC4CF124F648916181AF6974A1B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9DBB440FD57E4654AB0C372195BB2CD1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1306,26 +1294,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5988D331C6274924835ABB994436E72A"
-            {
-            "SourcePath" = "8:..\\images\\game_icon.ico"
-            "TargetName" = "8:game_icon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5A9BC5CDB78C4A3CA43BE830970DF1B4"
             {
             "SourcePath" = "8:..\\images\\num4.png"
@@ -1810,26 +1778,6 @@
             {
             "SourcePath" = "8:..\\images\\gamesc_down.png"
             "TargetName" = "8:gamesc_down.png"
-            "Tag" = "8:"
-            "Folder" = "8:_B27FEEFC508D4FF285C10806C878A3D7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9DBB440FD57E4654AB0C372195BB2CD1"
-            {
-            "SourcePath" = "8:..\\images\\game_icon.ico"
-            "TargetName" = "8:game_icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_B27FEEFC508D4FF285C10806C878A3D7"
             "Condition" = "8:"
@@ -2547,7 +2495,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Very Very Strawberry Scary Game"
         "ProductCode" = "8:{87A20118-0901-4A0A-AAAA-F3CDE7C39667}"
-        "PackageCode" = "8:{C21C7D98-4846-4B53-8A95-1409BC67567F}"
+        "PackageCode" = "8:{0CF9063F-3355-41D6-B104-D16424E32B3B}"
         "UpgradeCode" = "8:{71E98827-9899-48DB-BF19-425216C21440}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -2678,7 +2626,7 @@
             "Target" = "8:_04138CCE6796416791C261FE0772F4A1"
             "Folder" = "8:_93E523D4D2B64E928264F2AEDC16E39C"
             "WorkingFolder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
-            "Icon" = "8:_5988D331C6274924835ABB994436E72A"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CD5C0A397F92441AA033E0422BBF46EB"
@@ -2692,7 +2640,7 @@
             "Target" = "8:_04138CCE6796416791C261FE0772F4A1"
             "Folder" = "8:_56CD51ABC2F64AB39F9935891DC6FD4C"
             "WorkingFolder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
-            "Icon" = "8:_5988D331C6274924835ABB994436E72A"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
