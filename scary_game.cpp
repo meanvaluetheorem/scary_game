@@ -1,7 +1,7 @@
 ﻿#include<stdio.h>
 #include<bangtal.h>
 int hit = 0, key_count = -1, scene_add = 0, key_input[4] = { 0, }, ending_y = -1400;
-float chong_tang_time = 0.05f, hammer_tang_time = 0.08f, ending_speed = 0.005f;
+float chong_tang_time = 0.1f, hammer_tang_time = 0.08f, ending_speed = 0.005f;
 SoundID scary_BGM, gun_fire, glass_broken, button_sound, key_sound, wrong_sound, win_sound;
 TimerID time_chong, time_hammer, ending_time;
 SceneID sc_start, sc_front, sc_back, sc_right, sc_left, sc_up, sc_down, sc_roof, sc_scary, sc_keypan1, sc_keypan2, sc_win;

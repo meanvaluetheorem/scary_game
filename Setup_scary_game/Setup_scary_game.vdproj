@@ -33,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0416194BA21A4E0B9D8E589300D853D2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_04595CDE0AA04D119E04833EC6C8499E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -238,6 +232,12 @@
         "Entry"
         {
         "MsmKey" = "8:_57708EBBC53B4EDBBF509C2C806DBDD4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5988D331C6274924835ABB994436E72A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -620,6 +620,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -644,6 +652,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -692,26 +708,6 @@
             "TargetName" = "8:gamesc_up.png"
             "Tag" = "8:"
             "Folder" = "8:_B27FEEFC508D4FF285C10806C878A3D7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0416194BA21A4E0B9D8E589300D853D2"
-            {
-            "SourcePath" = "8:..\\..\\..\\Desktop\\icon.ico"
-            "TargetName" = "8:icon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1390,6 +1386,26 @@
             {
             "SourcePath" = "8:E:\\Program Files (x86)\\Bosornd\\Bangtal\\bin\\libmpg123.dll"
             "TargetName" = "8:libmpg123.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5988D331C6274924835ABB994436E72A"
+            {
+            "SourcePath" = "8:..\\images\\game_icon.ico"
+            "TargetName" = "8:game_icon.ico"
             "Tag" = "8:"
             "Folder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
             "Condition" = "8:"
@@ -2686,15 +2702,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Very Very Strawberry Scary Game"
-        "ProductCode" = "8:{8284C7F8-0E10-4851-93C6-DF8CB4677D58}"
-        "PackageCode" = "8:{C8C6DEF0-6352-44C6-87FD-80BD1D87416D}"
+        "ProductCode" = "8:{87A20118-0901-4A0A-AAAA-F3CDE7C39667}"
+        "PackageCode" = "8:{E44C81A9-4436-4787-B14E-6C4631EDBD91}"
         "UpgradeCode" = "8:{71E98827-9899-48DB-BF19-425216C21440}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:HM Company"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -2818,7 +2834,7 @@
             "Target" = "8:_04138CCE6796416791C261FE0772F4A1"
             "Folder" = "8:_93E523D4D2B64E928264F2AEDC16E39C"
             "WorkingFolder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
-            "Icon" = "8:_0416194BA21A4E0B9D8E589300D853D2"
+            "Icon" = "8:_5988D331C6274924835ABB994436E72A"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CD5C0A397F92441AA033E0422BBF46EB"
@@ -2832,7 +2848,7 @@
             "Target" = "8:_04138CCE6796416791C261FE0772F4A1"
             "Folder" = "8:_56CD51ABC2F64AB39F9935891DC6FD4C"
             "WorkingFolder" = "8:_A6B33EC3C4BD40609EEC8A9DB8E5A94B"
-            "Icon" = "8:_0416194BA21A4E0B9D8E589300D853D2"
+            "Icon" = "8:_5988D331C6274924835ABB994436E72A"
             "Feature" = "8:"
             }
         }
